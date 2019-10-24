@@ -22,6 +22,7 @@ export default class w_AZS_SF extends React.Component {
             isExistError: true,
 
             _List_Main: null,
+            _Fuels:null,
             _List_AZS: null,
 
             _array_ID: null,
@@ -46,6 +47,16 @@ export default class w_AZS_SF extends React.Component {
         this.tick_AZS();
         demoAsyncCall().then(() => this.setState({ loading: false }));
     }
+
+    sort_List(typ, list) {
+        for (const iterator of list) {
+            if (iterator.typ == typ) {
+                return iterator;
+            }
+        }
+        return null;
+    }
+
     async tick() {
         let rss = RSS_List_Main;
         var myRequest = new Request(rss);
@@ -61,7 +72,18 @@ export default class w_AZS_SF extends React.Component {
             );
             const Jsons = await response.json();
             if (response.ok) {
-                this.setState({ _List_Main: Jsons.dvctyptree }, this.Get_BOOK_From_TREE);
+
+                /*
+                                let t = new Array();
+                                let item1 = this.sort_List("tso", Jsons.dvctyptree);
+                                if (item1 != null); { t.push(item1); }
+                                let item2 = this.sort_List("pump", Jsons.dvctyptree);
+                                if (item2 != null); { t.push(item2); }
+                                let item3 = this.sort_List("pl", Jsons.dvctyptree);
+                                if (item3 != null); { t.push(item3); }
+                                this.setState({ _List_Main: t }, this.Get_BOOK_From_TREE);
+                 */
+                this.setState({ _List_Main: Jsons.dvctyptree, _Fuels: Jsons.fuel}, this.Get_BOOK_From_TREE);
             }
             else {
                 throw Error(response.statusText);
@@ -135,6 +157,8 @@ export default class w_AZS_SF extends React.Component {
                     list_book={this.state.list_book}
                     _List_Main={this.state._List_Main}
                     _List_AZS={this.state._List_AZS}
+
+                    _Fuels={this.state._Fuels}
 
                 />
             );

@@ -31,8 +31,11 @@ import W_AZS_SF from './w_AZS_SF.jsx'
 import W_Login from './w_Login.jsx'
 
 import W_LeftPanel from './test/w_LeftPanel.jsx'
+import W_AccordPanel from './test/w_AccordPanel.jsx'
+
 
 const _Debuge_LeftPanel = false;
+const _Debuge_TestMenu = false;
 
 const VerticalSidebar = ({ animation, direction, visible }) => (
   <Sidebar
@@ -65,8 +68,6 @@ VerticalSidebar.propTypes = {
   visible: PropTypes.bool,
 }
 
-
-
 class Main extends Component {
   render() {
     return (<W_AZS_SF w_Height={this.props.w_Height} w_Width={this.props.w_Width}
@@ -85,8 +86,9 @@ class AZS_SF extends Component {
 class CleanTOKEN extends Component {
   render() {
     saveToken(null);
-    this.props.history.push('/');
+    //this.props.history.push('/');
     window.location.reload(true);
+
     return <center><h2>Очистить</h2></center>;
   }
 }
@@ -149,10 +151,19 @@ class NotFound extends Component {
     return <center><h2>Ресурс не найден</h2></center>;
   }
 }
+
 class LeftPanel extends Component {
   render() {
 
     return (<W_LeftPanel
+      w_Height={this.props.w_Height}
+      w_Width={this.props.w_Width}
+      history={this.props.history} />);
+  }
+}
+class AccordPanel extends Component {
+  render() {
+    return (<W_AccordPanel
       w_Height={this.props.w_Height}
       w_Width={this.props.w_Width}
       history={this.props.history} />);
@@ -193,24 +204,24 @@ class Nav extends Component {
                   <tr>
                     <td id='td_m'>
                       <S_Link activeClass="active" className="test1" to="test1"
-                        spy={true} smooth={true} duration={500} offset={-210}>
+                        spy={true} smooth={true} duration={500} offset={-40}>
                         цены</S_Link>
                     </td><td id='td_m'>
                       <S_Link activeClass="active" className="test2" to="test2"
-                        spy={true} smooth={true} duration={500} offset={-210}>
+                        spy={true} smooth={true} duration={500} offset={-40}>
                         тсо</S_Link>
                     </td><td id='td_m'>
                       <S_Link activeClass="active" className="test3" to="test3"
-                        spy={true} smooth={true} duration={500} offset={-210}>
+                        spy={true} smooth={true} duration={500} offset={-40}>
                         трк</S_Link>
                     </td><td id='td_m'>
                       <S_Link activeClass="active" className="test4" to="test4"
-                        spy={true} smooth={true} duration={500} offset={-210}>
+                        spy={true} smooth={true} duration={500} offset={-40}>
                         резервуары</S_Link>
                     </td>
                     <td id='td_m'>
                       <S_Link activeClass="active" className="test5" to="test5"
-                        spy={true} smooth={true} duration={500} offset={-210}>
+                        spy={true} smooth={true} duration={500} offset={-40}>
                         видео</S_Link>
                     </td>
                   </tr>
@@ -244,11 +255,14 @@ class Nav extends Component {
               <li><Link to="/settings">Настройки</Link></li>
               <li><Link to="/clean">Очистить</Link></li>
               <li><Link to="/help">Помощь</Link></li>
-              <li><Link to="/"><center>Тестовая &gt;&gt;</center></Link>
-                <ul className="submenu">
-                  <li><Link to="/LeftPanel">Левая панель</Link></li>
-                </ul>
-              </li>
+              {_Debuge_TestMenu &&
+                <li><Link to="/"><center>Тестовая &gt;&gt;</center></Link>
+                  <ul className="submenu">
+                    <li><Link to="/LeftPanel">Левая панель</Link></li>
+                    <li><Link to="/AccordPanel">Аккордная панель</Link></li>
+                  </ul>
+                </li>
+              }
             </ul>
           </li>
         </ul>
@@ -275,6 +289,7 @@ export default class App extends Component {
   componentDidMount() {
     this.tick();
   }
+
   async tick() {
     let rss = RSS_AZS_EDIT;
     let token = localStorage.tokenData;
@@ -297,7 +312,6 @@ export default class App extends Component {
       );
       const Jsons = await response.json();
       if (response.ok) {
-        let r = 0;
         this.setState({ data: Jsons });
       }
       else {
@@ -368,6 +382,9 @@ export default class App extends Component {
                 <Route exact path="/clean" component={CleanTOKEN} />
                 <Route exact path="/help" component={Help} />
                 <Route exact path="/LeftPanel" render={({ history }) => <LeftPanel w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                  history={history} />} />
+
+                <Route exact path="/AccordPanel" render={({ history }) => <AccordPanel w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                   history={history} />} />
                 <Route exact component={NotFound} />
               </Switch>

@@ -1,3 +1,4 @@
+import { isArray } from "util";
 
 const IP_Server = "http://172.23.16.18:8080";
 
@@ -7,6 +8,8 @@ export const RSS_LOGIN = IP_Server + "/dprest-1.0-SNAPSHOT/webresources/ru.exper
 export const RSS_AZS_EDIT = IP_Server + "/dprest-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dic.edit/azk";
 
 export const WS = "ws://172.23.16.18:8080/dpsock-1.0-SNAPSHOT/alwsc";
+
+export const POST = IP_Server + "/dprest-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.com";
 
 export let Curent_Login = "";
 
@@ -28,6 +31,12 @@ function Get_MainHead_CNTYP(item_pros, item, isDVC) {
 
         for (const _item of item.cntyp) {
             let OP = Get_MainHead_OP(_item.def.op);
+
+            if (item.nm == "Купюроприёмник") {
+                let r = 0;
+            }
+
+
             item_pros.push({
                 ID: 0,
                 isMain: false, main_type: type, type: "cntyp",
@@ -44,6 +53,10 @@ function Get_MainHead_dvctyptree(item_pros, item) {
             if (type != "pump") {
                 for (const key in _item) {
                     if (key == "nm" || key == "id" || key == "typ") {
+
+                        if (_item[key] == "Купюроприёмник") {
+                            let r = 0;
+                        }
 
                         item_pros.push({
                             ID: 0,
@@ -65,7 +78,7 @@ function SET_MainHead(item, item_pros) {
                 item_pros.push({
                     ID: 0,
                     isMain: true, main_type: 'NULL', type: 'NULL',
-                    key: 'NULL', key_value: '|', isDVC: false
+                    key: 'NULL', key_value: "_", isDVC: false
                 });
             }
             item_pros.push({
@@ -85,7 +98,7 @@ function set_AZS_name(BOOK_All) {
         ID: 0,
         ColSpan: 2,
         isMain: true, main_type: 'NULL', type: 'NULL',
-        key: "NULL", key_value: '|', isDVC: false
+        key: "NULL", key_value: " ", isDVC: false
     });
     BOOK_All.push({
         ID: 0,
@@ -103,7 +116,7 @@ function set_AZS_name(BOOK_All) {
         ID: 0,
         ColSpan: 2,
         isMain: true, main_type: 'azs', type: 'azs',
-        key: "nm", key_value: "АЗК", isDVC: false
+        key: "nm", key_value: " ", isDVC: false
     });
 }
 export function Get_Main_PROPS(List_Main) {
@@ -142,21 +155,21 @@ function Get_MAX_COL(mass_DVC) {
     }
     return max_Col;
 }
-function GET_AZS_name(BOOK_All, azs, max_Col) {
+function GET_AZS_name(BOOK_All, azs, max_Col, mass_DVC) {
     /*** строки для приема данных названия азс ****************/
     BOOK_All.push({
         dvc_id: "",
         ID: azs.id,
         ColSpan: max_Col,
         isMain: true, main_type: 'NULL', type: 'NULL',
-        key: "NULL", key_value: "|", isDVC: false
+        key: "NULL", key_value: " ", isDVC: false
     });
     BOOK_All.push({
         dvc_id: "",
         ID: azs.id,
         ColSpan: max_Col,
         isMain: true, main_type: 'azs', type: 'azs',
-        key: "id", key_value: azs.id, isDVC: false
+        key: "id", key_value: azs.id, isDVC: false, mass_DVC: mass_DVC
     });
     BOOK_All.push({
         dvc_id: "",
@@ -187,11 +200,12 @@ export function Get_Main_PROPS_AZS(azs, mass_DVC, List_Main) {
     let BOOK_All = new Array();
     if (azs != null && mass_DVC != null) {
         let max_Col = Get_MAX_COL(mass_DVC);
-        GET_AZS_name(BOOK_All, azs, max_Col);
+        GET_AZS_name(BOOK_All, azs, max_Col, mass_DVC);
 
         let C_PL = 0;
         let C_PUMP = 0;
         let C_TSO = 0;
+
         let list_PL_col = get_Lists(List_Main, "pl");
         let list_PUMP_col = get_Lists(List_Main, "pump");
         let list_TSO_col = get_Lists(List_Main, "tso");
@@ -210,10 +224,11 @@ export function Get_Main_PROPS_AZS(azs, mass_DVC, List_Main) {
                 }
                 case "tso": {
                     C_TSO++;
-                    Get_DVC(BOOK_All, iterator, azs.id, list_TSO_col, mass_DVC);
+                    Get_DVC(BOOK_All, iterator, azs.id, list_TSO_col);//, mass_DVC);
                     break;
                 }
             }
+
             //Get_MainHead_AZS(BOOK_All, iterator, azs.id, max_Col);
         }
 
@@ -225,6 +240,10 @@ export function Get_Main_PROPS_AZS(azs, mass_DVC, List_Main) {
         if (list_TSO_col.dvctyptree != undefined) { // заполнить данными по dvctyptree
             Get_DVC_TREE(BOOK_All, C_TSO, max_Col, azs.id, "tso", list_TSO_col.dvctyptree, mass_DVC);
         }
+        /* if (list_PUMP_col.dvctyptree != undefined) { // заполнить данными по dvctyptree
+             Get_DVC_TREE(BOOK_All, C_PUMP, max_Col, azs.id, "pump", list_PUMP_col.dvctyptree, mass_DVC);
+         }
+         */
     }
     return BOOK_All;
 }
@@ -233,16 +252,30 @@ export function Get_Main_PROPS_AZS(azs, mass_DVC, List_Main) {
 
 function Get_DVC(BOOK_All, item_DVC, azs_ID, list_Main) {
     for (const key in item_DVC) {
+
         if (key == "nm" || key == "id" || key == "typ") {
+
+            if (item_DVC.fuel != null) {
+                let r = 0;
+            }
             BOOK_All.push({
                 dvc_id: item_DVC.id,
                 ID: azs_ID,
+                fuel: item_DVC.fuel,
+
+                state_pl: 0,
+                water_level: 0,
+                state_shift: 0,
+                state_trk: 0,
+
+
 
                 isMain: true, main_type: item_DVC.typ, type: item_DVC.typ,
                 key: key, key_value: item_DVC[key], isDVC: false
             });
         }
     }
+
     Get_DVC_CNTYP(BOOK_All, false, azs_ID, list_Main, item_DVC.id);
 }
 function Get_DVC_CNTYP(BOOK_All, isDVC, azs_ID, list_Main, item_DVC_id) {
@@ -299,7 +332,6 @@ function Get_DVC_TREE(BOOK_All, CurentCOL, max_Col, azs_ID, main_type, List_Main
                         BOOK_All.push({
                             dvc_id: item_dvc.id,
                             ID: azs_ID,
-
                             isMain: true, main_type: main_type, type: item_dvc.typ,
                             key: key, key_value: item_dvc[key], isDVC: true
                         });
@@ -342,9 +374,10 @@ function Get_DVC_CNTYP_TREE(BOOK_All, isDVC, azs_ID, list_Main, item_DVC_id) {
                 isDVC: isDVC, OP: OP
             });
 
-            if (type == 'msc' && _item.typ == "PRINTER_PAPER_END_SENSOR") {
-                let r = 0;
-            }
+            /*             if (type == 'msc' && _item.typ == "PRINTER_PAPER_END_SENSOR") {
+                            let r = 0;
+                        }
+             */
         }
     }
 }
@@ -407,13 +440,25 @@ export function saveToken(token, login) {
     }
 }
 export function get_Json_String(mstring) {
-    var mS = [];
-    mS[0] = mstring;
-    const T_Json = JSON.stringify(mstring);
+    let R_Mas = new Array();
+    for (const m of mstring) {
+        if (isArray(m)) {
+            for (const item of m) {
+                R_Mas.push(item);
+            }
+        }else{
+            R_Mas.push(m);
+        }
+    }
+    const T_Json = JSON.stringify(R_Mas);
     return T_Json;
 }
-export function get_Num(el, _Debuge_Show_Crit) {
+export function get_Num(el, _Debuge_Show_Crit, _Debuge_Show_Code) {
+    if (el.key_value != "----" && el.key_value != " " && el.OP != null) {
+        let r = 0;
+    }
     let text = el.key_value;
+
     let num_Text = parseInt(text);
     if (!isNaN(num_Text)) {
         if (el.key == "TOTAL_OBSERVED_VOLUME" || el.key == "PRODUCT_LEVEL") {
@@ -423,6 +468,9 @@ export function get_Num(el, _Debuge_Show_Crit) {
                 text = el.OP[num_Text];
             }
         }
+    }
+    if (_Debuge_Show_Code) {
+        text = text + " [" + el.key + "]";
     }
     if (_Debuge_Show_Crit && el.crit != null && el.crit != "----") {
         if (el.OP != null) {
@@ -434,3 +482,33 @@ export function get_Num(el, _Debuge_Show_Crit) {
     }
     return text;
 }
+
+export function getColor_Crit(Crit) {
+    let _color = null;
+    switch (Crit) {
+        case 1: { _color = 'white'; break; }
+        case 2: { _color = 'yellow'; break; }
+        case 3: { _color = 'hotpink'; break; }
+        default: { _color = 'white'; break; }
+    }
+    return _color;
+}
+
+/*
+
+{(el.key != "nm") &&
+                                                                        (el.ID == 0) ? (
+                                                                            <Single_Coll el={el_azs} UP={this.get_Up(el)}
+                                                                                _Fuels={this.props._Fuels}
+                                                                                _Debuge_Show_Code={this.props._Debuge_Show_Code}
+                                                                                _Debuge_Show_Crit={this.props._Debuge_Show_Crit}
+                                                                            />
+                                                                        ) : (
+                                                                            <center>
+                                                                                <W_pl_Head el={el_azs} _Fuels={this.props._Fuels}
+                                                                                    STATE_PL={this.state.STATE_PL} />
+                                                                            </center>
+                                                                        )
+                                                                    }
+
+*/

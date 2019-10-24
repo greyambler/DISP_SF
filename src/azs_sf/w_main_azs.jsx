@@ -1,14 +1,9 @@
 import React from 'react';
 
 import W_azs from './w_azs.jsx'
+import W_List_azs from './w_List_azs.jsx'
 import { RSS_AZS, Get_Main_PROPS_AZS } from '../core/core_Function.jsx'
 
-function get_Json_String(mstring) {
-    var mS = [];
-    mS[0] = mstring;
-    const T_Json = JSON.stringify(mstring);
-    return T_Json;
-}
 
 const _Debuge = false;
 const _Debuge_Show_Code = false;
@@ -18,22 +13,29 @@ const _Debuge_Alert = true;
 export default class w_main_azs extends React.Component {
     constructor(props) {
         super(props);
-        this.Full_BOOK_From_AZS = this.Full_BOOK_From_AZS.bind(this);
+
         this.state = {
-            list_book: this.props.list_book,
-
-            _List_AZS: this.props._List_AZS,
-            _List_Main: this.props._List_Main,
-
-            list_id: null,
-            list_azs: null,
+            list_dvc_id: null,
         }
     }
+
     componentDidMount() {
-        if (this.state._List_AZS != null) {
-            this.get_Id_Devices();
+        this.get_Id_Devices();
+    }
+
+    async get_Id_Devices() {
+        if (this.props._List_AZS != null) {
+            let M_ID = new Array();
+            for (const iterator of this.props._List_AZS) {
+                let m = await this.tick_dev_AZS(RSS_AZS, iterator.id);
+                if (m != null && m.length > 0) {
+                    M_ID.push(m);
+                }
+            }
+            this.setState({ list_dvc_id: M_ID });
         }
     }
+
     async tick_dev_AZS(RES, id_azs) {
         let rss = RES + '/' + id_azs;
         var myRequest = new Request(rss);
@@ -49,7 +51,15 @@ export default class w_main_azs extends React.Component {
             );
             const Jsons = await response.json();
             if (response.ok) {
-                return Jsons.dvc;
+                if (Jsons.dvc != null) {
+                    let M_ID = new Array();
+                    for (const dvc of Jsons.dvc) {
+                        M_ID.push(dvc.id);
+                    }
+                    return M_ID;
+                } else {
+                    return null;
+                }
             }
             else {
                 throw Error(response.statusText);
@@ -59,52 +69,18 @@ export default class w_main_azs extends React.Component {
             console.log(error);
         }
     }
-    async get_Id_Devices() {
-        let M_ID = new Array();
-        let BOOK_All_AZSs = new Array();
-        let l = 0;
-        if (this.state._List_AZS != null) {
-            for (const iterator of this.state._List_AZS) {
-                let rss = await this.tick_dev_AZS(RSS_AZS, iterator.id);
-                if (rss != null) {
-                    if (l == 0) {
-                        await this.Full_BOOK_From_AZS(BOOK_All_AZSs, iterator.id, rss);
-                        l = 0;
-                    }
-                    for (const dvc of rss) {
-                        M_ID.push(dvc.id);
-                    }
-                }
-            }
-        }
-        this.setState({ list_id: M_ID, list_azs: BOOK_All_AZSs });
-    }
-    async Full_BOOK_From_AZS(BOOK_All_AZSs, id_AZS, mass_DVC) {
-        if (mass_DVC != null) {
-            if (this.state._List_AZS != null) {
-
-                for (const _azs of this.state._List_AZS) {
-                    if (id_AZS == _azs.id) {
-                        let BOOK_AZS = Get_Main_PROPS_AZS(_azs, mass_DVC, this.state._List_Main);
-                        BOOK_All_AZSs.push(BOOK_AZS);
-                        break;
-                    }
-                }
-            }
-        }
-    }
 
     render() {
-        if (this.state.list_book != null
-            && this.state.list_id != null
-            //&& this.state.list_azs != null
+        if (this.state.list_dvc_id != null
         ) {
             return (
-                <W_azs
-                    list_book={this.state.list_book}
+                <W_List_azs
+                    list_book={this.props.list_book}
+                    list_dvc_id={this.state.list_dvc_id}
 
-                    list_id={this.state.list_id}
-                    list_azs={this.state.list_azs}
+                    _List_AZS={this.props._List_AZS}
+                    _Fuels={this.props._Fuels}
+                    _List_Main={this.props._List_Main}
 
                     _Debuge={_Debuge}
                     _Debuge_Show_Code={_Debuge_Show_Code}

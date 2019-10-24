@@ -4,7 +4,6 @@ import W_table_azs from './w_table_azs.jsx'
 
 import { WS, get_Json_String } from '../core/core_Function.jsx'
 
-
 export default class w_azs extends React.Component {
     constructor(props) {
         super(props);
@@ -18,8 +17,8 @@ export default class w_azs extends React.Component {
 
         this.state = {
             list_book: this.props.list_book,
-            list_azs: this.props.list_azs, // содержит все пареметры устройств азк   - требует добавления данных через WS
-            list_id: this.props.list_id,
+            list_azs: this.props.list_azs_dvc, // содержит все пареметры устройств азк   - требует добавления данных через WS
+            list_id: this.props.list_dvc_id,
 
             /******** WS******************** */
             Ws: WS,
@@ -66,6 +65,8 @@ export default class w_azs extends React.Component {
                                 //this.setState({ data: JSON.parse(evt.data) });// Рабочий
                                 //this.add_messages("\n" + evt.data);
                                 //console.log('***JSON*********************' + evt.data);
+                            } else {
+                                let r = 0;
                             }
                         } catch (error) {
                             console.log('******WS******************' + error);
@@ -101,25 +102,73 @@ export default class w_azs extends React.Component {
     }
     /******** WS******************** */
 
+    get_Fuel_Code(data, data_val, azs) {
+        let _fuel = 0;
+        let mass_DVC_AZS = null;
+        for (const dvc of azs) {
+            if (data.id == dvc.dvc_id) {
+                for (const _dvc of azs) {
+                    if (_dvc.ID == dvc.ID && _dvc.key == "id") {
+                        mass_DVC_AZS = _dvc.mass_DVC;
+                        break;
+                    }
+                }
+            }
+            if (data.id == dvc.dvc_id && dvc.key == data_val.typ && dvc.key == "nozzle") {
+                for (const dev_A of mass_DVC_AZS) {
+                    if (dev_A.typ == data_val.typ) {
+                        if (dev_A.prop != undefined) {
+                            for (const item_prop of dev_A.prop) {
+                                if (item_prop.typ == 'NUM') {
+                                    if (parseInt(item_prop.capacity) == parseInt(data_val.val)) {
+                                        _fuel = dev_A.fuel;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return _fuel;
+    }
+
     async full_Key_Value(data) {
-        //let need = false;
 
         if (this.state.list_azs != null && data != null) {
             for (const data_val of data.values) {
                 for (const azs of this.state.list_azs) {
                     for (const dvc of azs) {
-
-                        //comment
-
-                        if (data.id == dvc.dvc_id && dvc.key == data_val.typ) {
-                            if (data_val.comment != null) {
-                                dvc.key_value = data_val.comment;
-                            } else {
-                                dvc.key_value = data_val.val;
+                        if (data.id == dvc.dvc_id) {
+                            switch (data_val.typ) {
+                                case "STATE_PL": dvc.state_pl = data_val.val; break;
+                                case "WATER_LEVEL": dvc.water_level = data_val.crit; break;
+                                case "STATE_SHIFT": dvc.state_shift = data_val.val; break;
+                                case "STATUS_TRK":
+                                    {
+                                        dvc.state_trk = data_val.val;
+                                        break;
+                                    }
+                                case "nozzle":
+                                    {
+                                        if (data_val.val != 0) {
+                                            let _fuel = this.get_Fuel_Code(data, data_val, azs);
+                                            dvc.fuel = _fuel;
+                                        } else {
+                                            dvc.fuel = 0;
+                                        }
+                                        break;
+                                    }
                             }
-
-                            dvc.crit = data_val.crit;
-                            //break;
+                            if (dvc.key == data_val.typ) {
+                                if (data_val.comment != null) {
+                                    dvc.key_value = data_val.comment;
+                                } else {
+                                    dvc.key_value = data_val.val;
+                                }
+                                dvc.crit = data_val.crit;
+                            }
                         }
                     }
                     //break;
@@ -134,6 +183,9 @@ export default class w_azs extends React.Component {
             <W_table_azs
                 list_book={this.state.list_book}
                 list_azs={this.state.list_azs}
+
+                _Fuels={this.props._Fuels}
+
                 _Debuge={this.props._Debuge}
                 _Debuge_Show_Code={this.props._Debuge_Show_Code}
                 _Debuge_Show_Crit={this.props._Debuge_Show_Crit}

@@ -4,10 +4,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 96.5%;
-  
   overflow-x: visible;
-  
-  
 }
 
 code {
@@ -24,7 +21,6 @@ code {
   min-height: 99%;
   margin-top: 35px;
   margin-left: 2px;
- 
 }
 
 /*******HEADER******************/
@@ -39,14 +35,12 @@ nav {
 }
 
 /**/
+
 nav li:hover>.submenu {
   transform: rotateX(0deg);
   visibility: visible;
   opacity: 1;
 }
-
-
-
 
 nav ul {
   margin: 0;
@@ -165,14 +159,12 @@ td, th, tr {
 .header_Right {
   position: absolute;
   width: 56px;
-  
   height: 23px;
   left: 2px;
   top: 7px;
   font-family: Neusa Next Pro;
   font-size: 18px;
   line-height: 23px;
-  
   display: flex;
   align-items: center;
   letter-spacing: 0.1em;
@@ -182,41 +174,38 @@ td, th, tr {
 .header_Text {
   position: absolute;
   width: 56px;
-  
   height: 23px;
   left: 229px;
   top: 7px;
   font-family: Neusa Next Pro;
   font-size: 18px;
   line-height: 23px;
-  
   display: flex;
   align-items: center;
   letter-spacing: 0.1em;
   color: #FFFFFF;
 }
+
 .header_Left {
   position: absolute;
   width: 225px;
   height: 20px;
   display: table;
-  
   top: 4px;
   font-family: Neusa Next Pro;
   font-size: 14px;
   line-height: 23px;
-  
   display: table;
   align-items: center;
   letter-spacing: 0.1em;
   color: #FFFFFF;
-
   right: 0;
   max-width: 170px;
   min-height: 20px;
-  max-height: 20px;  
+  max-height: 20px;
   vertical-align: middle;
 }
+
 .btn_Reload {
   margin-top: 2px;
   background: #1A2737;
@@ -226,33 +215,40 @@ td, th, tr {
 #td_user {
   max-width: 170px;
   min-width: 170px;
-
   white-space: nowrap;
-  
-
   height: 20px;
   max-height: 20px;
   min-height: 20px;
   border: 0px solid #1A2737;
 }
+
 #td_mb {
-  
   border: 0px ridge #1A2737;
 }
+
 #td_m {
   min-width: 120px;
   border: 0px ridge #1A2737;
 }
-.test1, .test1, .test2, .test3, .test4, .test5{
-  color: #FFFFFF;;
+
+.test1, .test1, .test2, .test3, .test4, .test5 {
+  color: #FFFFFF;
+  ;
 }
+
 .test0:hover, .test1:hover, .test2:hover, .test3:hover, .test4:hover, .test5:hover {
   /*    font-size: 20.5px;*/
   color: #A5ABB3;
   cursor: pointer;
+  
 }
 
+ /*
 td {
-  margin-right: 0px;
+  margin-right: 0px;  
   border: 3px ridge rgb(250, 246, 246);
+ background: #F0F0F0;
+  
 }
+*/
+
