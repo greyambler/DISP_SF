@@ -15,15 +15,9 @@ import W_filter_tr from './filter_tr.jsx'
 import W_pl_First from './PL/pl_First.jsx'
 import W_pl_Head from './PL/pl_Head.jsx'
 
-
 import W_azs_Head from './azs_Head.jsx'
 
-
 import W_tso_Rec_button from './TSO/tso_Rec_button.jsx'
-
-
-
-
 
 
 export default class single_coll extends React.Component {

@@ -26,37 +26,29 @@ export default class filter_tr extends React.Component {
     }
 
     render() {
-        let _style_2 = {
-            //border: "1px solid hotpink",
+        let _style_tbl = {
             background: '#F0F0F0',
-            //minWidth: '210px',
-            //height: '100%',
             height: '30px',
             width: '100%',
             verticalAlign: 'top',
         }
-        let _style_3 = {
-            top: '0',
-            fontFamily: 'Neusa Next Pro',
-            fontSize: '22px',
-            height: '27px',
-        }
-        let _style_4 = {
+        let _style_td = {
             marginTop: '10px',
             color: '#1A2737',
             width: "30px",
-
         }
         return (
-            <table style={_style_2} onClick={this.Click}>
-                <tr>
-                    <td onClick={this.Click}>
-                        {this.state.text_dvc}
-                    </td>
-                    <td style={_style_4}>
-                        <Image src={this.state._arrow} onClick={this.Click} />
-                    </td>
-                </tr>
+            <table style={_style_tbl} onClick={this.Click}>
+                <tbody>
+                    <tr>
+                        <td onClick={this.Click}>
+                            {this.state.text_dvc}
+                        </td>
+                        <td style={_style_td}>
+                            <Image src={this.state._arrow} onClick={this.Click} />
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         );
         /*

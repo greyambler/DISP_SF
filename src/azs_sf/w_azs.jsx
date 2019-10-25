@@ -26,6 +26,7 @@ export default class w_azs extends React.Component {
             connection: null,
             messages: [],
             IsOpen: false,
+
             /******** WS******************** */
         }
     }
@@ -46,10 +47,10 @@ export default class w_azs extends React.Component {
     }
 
     /******** WS******************** */
+
     start_ws(e) {
         if (this.state.list_id != null) {
             if (this.state.connection == null) {
-
                 this.state.connection = new WebSocket(this.state.Ws);
                 this.state.connection.onopen = evt => { this.OnOpen(evt.data) }//{ this.add_messages(evt.data) }
                 this.state.connection.onclose = evt => { this.add_messages(evt.data) }
@@ -63,6 +64,7 @@ export default class w_azs extends React.Component {
                                 this.full_Key_Value(JSON.parse(evt.data));
 
                                 //this.setState({ data: JSON.parse(evt.data) });// Рабочий
+
                                 //this.add_messages("\n" + evt.data);
                                 console.log('***JSON*********************' + evt.data);
                             } else {
@@ -100,6 +102,7 @@ export default class w_azs extends React.Component {
             });
         }
     }
+
     /******** WS******************** */
 
     get_Fuel_Code(data, data_val, azs) {
@@ -135,7 +138,6 @@ export default class w_azs extends React.Component {
     }
 
     async full_Key_Value(data) {
-
         if (this.state.list_azs != null && data != null) {
             for (const data_val of data.values) {
                 for (const azs of this.state.list_azs) {
@@ -179,6 +181,7 @@ export default class w_azs extends React.Component {
     }
 
     render() {
+
         return (
             <W_table_azs
                 list_book={this.state.list_book}
@@ -190,7 +193,6 @@ export default class w_azs extends React.Component {
                 _Debuge_Show_Code={this.props._Debuge_Show_Code}
                 _Debuge_Show_Crit={this.props._Debuge_Show_Crit}
                 _Debuge_Alert={this.props._Debuge_Alert}
-
             />
         );
     }

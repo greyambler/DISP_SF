@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createGuid, WhatKeyNotShow, getColor_Crit } from '../core/core_Function.jsx'
+import {demoAsyncCall, createGuid, WhatKeyNotShow, getColor_Crit } from '../core/core_Function.jsx'
 import Single_Coll from '../controls/single_coll.jsx'
 import Two_Coll from '../controls/two_coll.jsx'
 
@@ -14,9 +14,10 @@ export default class w_table_azs extends React.Component {
         this.get_Up = this.get_Up.bind(this);
         this.isShow_Row_Type = this.isShow_Row_Type.bind(this);
         this.state = {
+            loading: true,
+
             list_book: this.props.list_book,
             list_azs: this.props.list_azs,
-
 
             isPL_View: true,
             isPUMP_View: true,
@@ -24,6 +25,8 @@ export default class w_table_azs extends React.Component {
         }
     }
     componentDidMount() {
+        
+        demoAsyncCall().then(() => this.setState({ loading: false }));
     }
     componentDidUpdate(prevProps) {
         if (this.props.list_azs != prevProps.list_azs) {
@@ -137,19 +140,24 @@ export default class w_table_azs extends React.Component {
         return isView;
     }
     render() {
-        /* let style_TD = {
-            minWidth: '90px',
-            Width: '90px',
-            maxWidth: '90px',
-            textAlign: 'center',
-            background: 'white',
-            //minHeight: '120px',
-        } */
+        /***** Ждать *****************/
+        const { loading } = this.state;
+        if (loading) {
+            let stayle_1 = {
+                marginTop: '130px',
+            }
+            return (
+                <div align="center">
+                    <center><h1>Запрос данных.</h1></center>
+                    <img src='images/anim_engine.gif' style={stayle_1} />
+                </div>
+            );
+        }
+        /***** Ждать *****************/
+
         let w_table_Main = {
             background: "#F0F0F0"
         }
-        // const { activeIndex } = this.state
-
         if (this.state.list_book != null && this.state.list_azs != null) {
             return (
                 <div>

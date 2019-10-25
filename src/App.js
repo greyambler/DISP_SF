@@ -7,17 +7,7 @@ import 'react-app-polyfill/stable';
 import './App.css';
 
 
-import {
-  Button,
-  Checkbox,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  Menu,
-  Segment,
-  Sidebar,
-} from 'semantic-ui-react'
+import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
 
 
 import { demoAsyncCall, saveToken, RSS_AZS_EDIT, set_Curent_Login, get_Curent_Login, refreshPage } from './core/core_Function.jsx'
