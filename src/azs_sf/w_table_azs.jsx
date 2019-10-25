@@ -30,59 +30,9 @@ export default class w_table_azs extends React.Component {
             this.setState({ list_azs: this.props.list_azs });
         }
     }
-    getStyle_PL_ss(Crit) {
-        /*switch (Crit) {
-            case 0: {
-                return {
-                    background: 'white',
-                    textAlign: 'center',
-                    minWidth: '120px',
-                    maxWidth: '120px',
-                    fontSize: 14,
-                }
-                break;
-            }
-            case 1: {
-                return {
-                    background: 'white',
-                    textAlign: 'center',
-                    minWidth: '120px',
-                    maxWidth: '120px',
-                    fontSize: 14,
-                }
-                break;
-            }
-            case 2: {
-                return {
-                    background: 'yellow',
-                    textAlign: 'center',
-                    minWidth: '120px',
-                    maxWidth: '120px',
-                    fontSize: 14,
-                }
-                break;
-            }
-            case 3: {
-                return {
-                    background: 'hotpink',
-                    textAlign: 'center',
-                    minWidth: '120px',
-                    maxWidth: '120px',
-                    fontSize: 14,
-                }
-                break;
-            }
-        }*/
-    }
     getStyle_PL(Crit) {
         let _background = getColor_Crit(Crit);//'white';
-/*         switch (Crit) {
-            case 1: { _background = 'white'; break; }
-            case 2: { _background = 'yellow'; break; }
-            case 3: { _background = 'hotpink'; break; }
-            default: { _background = 'white'; break; }
-        }
- */        return {
+        return {
             background: _background,
             textAlign: 'center',
             minWidth: '120px',
@@ -186,20 +136,19 @@ export default class w_table_azs extends React.Component {
         }
         return isView;
     }
-
     render() {
-        let style_TD = {
-            minWidth: '120px',
-            Width: '120px',
-            //maxWidth: '120px',
+        /* let style_TD = {
+            minWidth: '90px',
+            Width: '90px',
+            maxWidth: '90px',
             textAlign: 'center',
             background: 'white',
             //minHeight: '120px',
-        }
+        } */
         let w_table_Main = {
             background: "#F0F0F0"
         }
-        const { activeIndex } = this.state
+        // const { activeIndex } = this.state
 
         if (this.state.list_book != null && this.state.list_azs != null) {
             return (
@@ -213,8 +162,7 @@ export default class w_table_azs extends React.Component {
                                         (el.isDVC)
                                             ? (
                                                 <tr key={createGuid()}>
-                                                    <Two_Coll el={el}
-                                                        _Debuge_Show_Code={this.props._Debuge_Show_Code} />
+                                                    <Two_Coll el={el} _Debuge_Show_Code={this.props._Debuge_Show_Code} />
 
                                                     {this.state.list_azs != null &&
                                                         this.state.list_azs.map((el_azsS, n) => (
@@ -224,7 +172,6 @@ export default class w_table_azs extends React.Component {
                                                                     style={this.getStyle(el_azs)}>
                                                                     <Single_Coll el={el_azs}
                                                                         el_azsS={el_azsS}
-
                                                                         _Debuge_Show_Code={this.props._Debuge_Show_Code}
                                                                         _Debuge_Show_Crit={this.props._Debuge_Show_Crit}
                                                                     />
@@ -237,9 +184,8 @@ export default class w_table_azs extends React.Component {
 
                                                 <tr key={createGuid()}>
                                                     {/*нулевая колонка*/}
-                                                    <td key={createGuid()} colSpan='2' style={style_TD}>
+                                                    <td key={createGuid()} colSpan='2' id='style_TD'>
                                                         <Single_Coll el={el}
-
                                                             setFilter={this.setFilter} UP={this.get_Up(el)}
                                                             _Debuge_Show_Code={this.props._Debuge_Show_Code}
                                                             _Debuge_Show_Crit={this.props._Debuge_Show_Crit}
@@ -251,11 +197,10 @@ export default class w_table_azs extends React.Component {
                                                         this.state.list_azs.map((el_azsS, n) => (
                                                             el_azsS.map(el_azs => (
                                                                 (el.key == el_azs.key && el.type == el_azs.type && el_azs.ID != 0) &&
-                                                                /*колонки данные*/
+
                                                                 <td key={createGuid()} colSpan={el_azs.ColSpan}
                                                                     style={this.getStyle(el_azs)}>
                                                                     <Single_Coll el={el_azs}
-
                                                                         UP={this.get_Up(el)}
                                                                         _Fuels={this.props._Fuels}
                                                                         _Debuge_Show_Code={this.props._Debuge_Show_Code}

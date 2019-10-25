@@ -64,7 +64,7 @@ export default class w_azs extends React.Component {
 
                                 //this.setState({ data: JSON.parse(evt.data) });// Рабочий
                                 //this.add_messages("\n" + evt.data);
-                                //console.log('***JSON*********************' + evt.data);
+                                console.log('***JSON*********************' + evt.data);
                             } else {
                                 let r = 0;
                             }

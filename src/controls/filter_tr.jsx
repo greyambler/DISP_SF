@@ -27,19 +27,39 @@ export default class filter_tr extends React.Component {
 
     render() {
         let _style_2 = {
+            //border: "1px solid hotpink",
             background: '#F0F0F0',
-            minWidth:'210px',
-            //height: '27px',
+            //minWidth: '210px',
+            //height: '100%',
+            height: '30px',
+            width: '100%',
+            verticalAlign: 'top',
         }
         let _style_3 = {
             top: '0',
             fontFamily: 'Neusa Next Pro',
             fontSize: '22px',
+            height: '27px',
         }
         let _style_4 = {
             marginTop: '10px',
             color: '#1A2737',
+            width: "30px",
+
         }
+        return (
+            <table style={_style_2} onClick={this.Click}>
+                <tr>
+                    <td onClick={this.Click}>
+                        {this.state.text_dvc}
+                    </td>
+                    <td style={_style_4}>
+                        <Image src={this.state._arrow} onClick={this.Click} />
+                    </td>
+                </tr>
+            </table>
+        );
+        /*
         return (
             <Segment onClick={this.Click}>
                 <Grid style={_style_2}>
@@ -57,63 +77,6 @@ export default class filter_tr extends React.Component {
                 </Grid>
             </Segment>
         );
+        */
     }
 }
-
-
-
-
-
-/*
-    render() {
-
-        let _style_2 = {
-            width: '100%',
-            height: '64px',
-            display: 'table',
-            background: '#F0F0F0',
-        }
-
-        let _style_3 = {
-            fontFamily: 'Neusa Next Pro',
-            fontSize: '32px',
-            lineHeight: '41px',
-        }
-        let _style_4 = {
-            alignItems: 'left',
-            color: '#1A2737',
-        }
-
-        return (
-            <>
-                <nobr style={_style_2}>
-                    <nobr style={_style_3} onClick={this.Click}>{this.state.text_dvc} </nobr>
-                    <nobr style={_style_4}><img src={this.state._arrow} width="12" onClick={this.Click} /></nobr>
-                </nobr>
-            </>
-        );
-    }
-}
-*/
-
-/*
-     <nobr style={_style_td1}> {this.state.text_dvc} </nobr>
-    <table>
-                <tbody>
-                    <tr style={_style_tr}>
-                        <td style={_style_td1}>
-                            {this.state.text_dvc}
-
-                            <button style={_style_Min_button}><img src="images/arrow_Up.png" alt="Флаг России" width="12" /></button>
-
-                        </td>
-                        <td>
-                            <button style={_style_Min_button}><img src="images/arrow_Up.png" alt="Флаг России" width="12" /></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-                <p style={_style} > {this.state.text_dvc}</p>
-                <img src="images/arrow_Up.png" alt="Флаг России" width="12"></img>
-*/

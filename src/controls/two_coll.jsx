@@ -9,14 +9,17 @@ export default class two_coll extends React.Component {
     }
     render() {
         let text = get_Num(this.props.el, this.props._Debuge_Show_Crit);
-        let style_TD = {
+        /* let style_TD = {
             background: 'white',
-        }
+            minWidth: '90px',
+            Width: '90px',
+            maxWidth: '90px',
+        } */
 
         if (this.props._Debuge_Show_Code) {
             return (
                 <>
-                    <td key={createGuid()} style={style_TD}>
+                    <td key={createGuid()} id='style_TD'>
                         {this.props.el.isMain ? (
                             text + " [ " + this.props.el.type + " / " + this.props.el.main_type + " ]"
                         ) : (
@@ -24,7 +27,7 @@ export default class two_coll extends React.Component {
                             )
                         }
                     </td>
-                    <td key={createGuid()} style={style_TD}>
+                    <td key={createGuid()} id='style_TD'>
                         {!this.props.el.isMain ? (
                             text + " [ " + this.props.el.type + " / " + this.props.el.main_type + " ]"
                         ) : (
@@ -36,7 +39,7 @@ export default class two_coll extends React.Component {
             );
         } else {
             return (<>
-                <td key={createGuid()} style={style_TD}>
+                <td key={createGuid()} id='style_TD'>
                     {this.props.el.isMain ? (
                         text
                     ) : (
@@ -44,7 +47,7 @@ export default class two_coll extends React.Component {
                         )
                     }
                 </td>
-                <td key={createGuid()} style={style_TD}>
+                <td key={createGuid()} id='style_TD' width="20px">
                     {!this.props.el.isMain ? (
                         text
                     ) : (

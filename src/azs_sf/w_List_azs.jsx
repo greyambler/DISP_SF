@@ -27,7 +27,7 @@ export default class w_List_azs extends React.Component {
                     _list_AZS.push(item);
                     BOOK_All_AZSs.push(BOOK_AZS);
                 }
-                l = 1;
+                l = 0;
             }
         }
         this.setState({ list_azs_dvc: BOOK_All_AZSs, _list_AZS: _list_AZS });//
@@ -81,7 +81,6 @@ export default class w_List_azs extends React.Component {
             }
         }
     }
-
     render() {
         if (this.props.list_book != null
             && this.state._list_AZS != null
