@@ -4,6 +4,18 @@ import W_table_azs from './w_table_azs.jsx'
 
 import { WS, get_Json_String } from '../core/core_Function.jsx'
 
+function cope_Mass(MASSIV) {
+    if (MASSIV != null) {
+        let NEW_MASSIV = new Array();
+        for (const iterator of MASSIV) {
+            NEW_MASSIV.push(iterator);
+        }
+        return NEW_MASSIV;
+    }
+    return null;
+}
+const _Debuge = false;
+
 export default class w_azs extends React.Component {
     constructor(props) {
         super(props);
@@ -16,9 +28,7 @@ export default class w_azs extends React.Component {
         /******** WS******************** */
 
         this.state = {
-            list_book: this.props.list_book,
-            list_azs: this.props.list_azs_dvc, // содержит все пареметры устройств азк   - требует добавления данных через WS
-            list_id: this.props.list_dvc_id,
+            List_dvc_azs: null,
 
             /******** WS******************** */
             Ws: WS,
@@ -31,16 +41,8 @@ export default class w_azs extends React.Component {
         }
     }
     componentDidMount() {
-        this.start_ws();
-    }
-    componentDidUpdate(prevProps) {
-        if (this.props.list_book != prevProps.list_book) {
-            this.setState({ list_book: this.props.list_book });
-        }
-        if (this.props.list_azs != prevProps.list_azs) {
-            this.setState({ list_azs: this.props.list_azs });
-        }
-
+        let N_list_dvc_azs = cope_Mass(this.props.list_dvc_azs)
+        this.setState({ List_dvc_azs: N_list_dvc_azs }, this.start_ws());
     }
     componentWillUnmount() {
         this.stop_ws();
@@ -49,7 +51,7 @@ export default class w_azs extends React.Component {
     /******** WS******************** */
 
     start_ws(e) {
-        if (this.state.list_id != null) {
+        if (this.props.list_dvc_id != null) {
             if (this.state.connection == null) {
                 this.state.connection = new WebSocket(this.state.Ws);
                 this.state.connection.onopen = evt => { this.OnOpen(evt.data) }//{ this.add_messages(evt.data) }
@@ -64,7 +66,6 @@ export default class w_azs extends React.Component {
                                 this.full_Key_Value(JSON.parse(evt.data));
 
                                 //this.setState({ data: JSON.parse(evt.data) });// Рабочий
-
                                 //this.add_messages("\n" + evt.data);
                                 console.log('***JSON*********************' + evt.data);
                             } else {
@@ -80,9 +81,9 @@ export default class w_azs extends React.Component {
         }
     }
     OnOpen(e) {
-        if (this.state.list_id != null) {
-            if (this.state.list_id.length > 0 && !this.state.IsOpen) {
-                let MS = get_Json_String(this.state.list_id);
+        if (this.props.list_dvc_id != null) {
+            if (this.props.list_dvc_id.length > 0 && !this.state.IsOpen) {
+                let MS = get_Json_String(this.props.list_dvc_id);
                 this.state.connection.send(MS);
                 this.setState({ messages: "", IsOpen: true })
             }
@@ -138,9 +139,9 @@ export default class w_azs extends React.Component {
     }
 
     async full_Key_Value(data) {
-        if (this.state.list_azs != null && data != null) {
+        if (this.state.List_dvc_azs != null && data != null) {
             for (const data_val of data.values) {
-                for (const azs of this.state.list_azs) {
+                for (const azs of this.state.List_dvc_azs) {
                     for (const dvc of azs) {
                         if (data.id == dvc.dvc_id) {
                             switch (data_val.typ) {
@@ -173,10 +174,9 @@ export default class w_azs extends React.Component {
                             }
                         }
                     }
-                    //break;
                 }
             }
-            this.setState({ list_azs: this.state.list_azs });
+            this.setState({ List_dvc_azs: this.state.List_dvc_azs });
         }
     }
 
@@ -184,15 +184,10 @@ export default class w_azs extends React.Component {
 
         return (
             <W_table_azs
-                list_book={this.state.list_book}
-                list_azs={this.state.list_azs}
+                list_book_row={this.props.list_book_row}
+                list_fuels={this.props.list_fuels}
 
-                _Fuels={this.props._Fuels}
-
-                _Debuge={this.props._Debuge}
-                _Debuge_Show_Code={this.props._Debuge_Show_Code}
-                _Debuge_Show_Crit={this.props._Debuge_Show_Crit}
-                _Debuge_Alert={this.props._Debuge_Alert}
+                List_dvc_azs={this.state.List_dvc_azs}
             />
         );
     }

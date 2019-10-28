@@ -30,6 +30,7 @@ export default class filter_tr extends React.Component {
             background: '#F0F0F0',
             height: '30px',
             width: '100%',
+            minWidth:'120px',
             verticalAlign: 'top',
         }
         let _style_td = {

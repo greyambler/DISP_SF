@@ -4,13 +4,14 @@ import W_azs from './w_azs.jsx'
 
 import { RSS_AZS, Get_Main_PROPS_AZS } from '../core/core_Function.jsx'
 
+const _Debuge = false;
 
 export default class w_List_azs extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            _list_AZS: null,
-            list_azs_dvc: null,
+            list_azs: null,
+            list_dvc_azs: null,
         }
     }
     componentDidMount() {
@@ -30,7 +31,7 @@ export default class w_List_azs extends React.Component {
                 l = 0;
             }
         }
-        this.setState({ list_azs_dvc: BOOK_All_AZSs, _list_AZS: _list_AZS });//
+        this.setState({ list_dvc_azs: BOOK_All_AZSs, list_azs: _list_AZS });//
     }
     async tick_dev_AZS(RES, id_azs) {
         let rss = RES + '/' + id_azs;
@@ -50,14 +51,13 @@ export default class w_List_azs extends React.Component {
                 if (Jsons.dvc != null && Jsons.dvc.length > 0) {
                     for (const _azs of this.props._List_AZS) {
                         if (id_azs == _azs.id) {
-                            return Get_Main_PROPS_AZS(_azs, Jsons.dvc, this.props._List_Main);
+                            return Get_Main_PROPS_AZS(_azs, Jsons.dvc, this.props.list_type_dvc);
                         }
                     }
                 }
                 else {
                     return null;
                 }
-                //return Jsons.dvc;
             }
             else {
                 throw Error(response.statusText);
@@ -73,7 +73,7 @@ export default class w_List_azs extends React.Component {
 
                 for (const _azs of this.props._List_AZS) {
                     if (id_AZS == _azs.id) {
-                        let BOOK_AZS = Get_Main_PROPS_AZS(_azs, mass_DVC, this.props._List_Main);
+                        let BOOK_AZS = Get_Main_PROPS_AZS(_azs, mass_DVC, this.props.list_type_dvc);
                         BOOK_All_AZSs.push(BOOK_AZS);
                         break;
                     }
@@ -82,25 +82,17 @@ export default class w_List_azs extends React.Component {
         }
     }
     render() {
-        if (this.props.list_book != null
-            && this.state._list_AZS != null
-            && this.props.list_dvc_id != null
-            && this.state.list_azs_dvc != null
+        if (this.state.list_azs != null
+            && this.state.list_dvc_azs != null
         ) {
             return (
                 <W_azs
-                    list_book={this.props.list_book}
+                    list_book_row={this.props.list_book_row}
                     list_dvc_id={this.props.list_dvc_id}
-                    list_azs_dvc={this.state.list_azs_dvc}
-                    _Fuels={this.props._Fuels}
-                    _List_AZS={this.state._list_AZS}
+                    list_fuels={this.props.list_fuels}
 
-
-                    _Debuge={this.props._Debuge}
-                    _Debuge_Show_Code={this.props._Debuge_Show_Code}
-                    _Debuge_Show_Crit={this.props._Debuge_Show_Crit}
-                    _Debuge_Alert={this.props._Debuge_Alert}
-
+                    _List_AZS={this.state.list_azs}
+                    list_dvc_azs={this.state.list_dvc_azs}
                 />
             );
         } else {

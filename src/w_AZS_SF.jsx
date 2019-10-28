@@ -11,7 +11,7 @@ const _Debuge_Alert = true;
 export default class w_AZS_SF extends React.Component {
     constructor(props) {
         super(props);
-        this.Get_BOOK_From_TREE = this.Get_BOOK_From_TREE.bind(this);
+        this.Get_list_book_row = this.Get_list_book_row.bind(this);
 
         this.View_Modal_Err = this.View_Modal_Err.bind(this);
         this.View_Modal_Ok = this.View_Modal_Ok.bind(this);
@@ -21,12 +21,10 @@ export default class w_AZS_SF extends React.Component {
             header: 'Объекты.',
             isExistError: true,
 
-            _List_Main: null,
-            _Fuels:null,
+            list_type_dvc: null,
+            list_fuels: null,
+            list_book_row: null,
             _List_AZS: null,
-
-            _array_ID: null,
-            list_book: null,
 
             openModal_Err: false,
             openModal_Ok: false,
@@ -72,18 +70,7 @@ export default class w_AZS_SF extends React.Component {
             );
             const Jsons = await response.json();
             if (response.ok) {
-
-                /*
-                                let t = new Array();
-                                let item1 = this.sort_List("tso", Jsons.dvctyptree);
-                                if (item1 != null); { t.push(item1); }
-                                let item2 = this.sort_List("pump", Jsons.dvctyptree);
-                                if (item2 != null); { t.push(item2); }
-                                let item3 = this.sort_List("pl", Jsons.dvctyptree);
-                                if (item3 != null); { t.push(item3); }
-                                this.setState({ _List_Main: t }, this.Get_BOOK_From_TREE);
-                 */
-                this.setState({ _List_Main: Jsons.dvctyptree, _Fuels: Jsons.fuel}, this.Get_BOOK_From_TREE);
+                this.setState({ list_type_dvc: Jsons.dvctyptree, list_fuels: Jsons.fuel }, this.Get_list_book_row);
             }
             else {
                 throw Error(response.statusText);
@@ -126,9 +113,9 @@ export default class w_AZS_SF extends React.Component {
                 alert(error);
         }
     }
-    Get_BOOK_From_TREE() {
-        let BOOK_All = Get_Main_PROPS(this.state._List_Main);
-        this.setState({ list_book: BOOK_All });
+    Get_list_book_row() {
+        let BOOK_All = Get_Main_PROPS(this.state.list_type_dvc);
+        this.setState({ list_book_row: BOOK_All });
     }
 
     render() {
@@ -147,18 +134,20 @@ export default class w_AZS_SF extends React.Component {
         }
         /***** Ждать *****************/
 
-        if (this.state.list_book != null && this.state._List_AZS != null) {
+        if (this.state.list_book_row != null && this.state._List_AZS != null) {
             return (
                 <W_main_azs
                     w_Height={this.props.w_Height}
                     w_Width={this.props.w_Width}
                     history={this.props.history}
 
-                    list_book={this.state.list_book}
-                    _List_Main={this.state._List_Main}
+
+
+                    list_book_row={this.state.list_book_row}
+                    list_type_dvc={this.state.list_type_dvc}
                     _List_AZS={this.state._List_AZS}
 
-                    _Fuels={this.state._Fuels}
+                    list_fuels={this.state.list_fuels}
 
                 />
             );

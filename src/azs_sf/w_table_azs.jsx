@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {demoAsyncCall, createGuid, WhatKeyNotShow, getColor_Crit } from '../core/core_Function.jsx'
+import { demoAsyncCall, createGuid, WhatKeyNotShow, getColor_Crit } from '../core/core_Function.jsx'
 import Single_Coll from '../controls/single_coll.jsx'
 import Two_Coll from '../controls/two_coll.jsx'
 
@@ -14,25 +14,13 @@ export default class w_table_azs extends React.Component {
         this.get_Up = this.get_Up.bind(this);
         this.isShow_Row_Type = this.isShow_Row_Type.bind(this);
         this.state = {
-            loading: true,
-
-            list_book: this.props.list_book,
-            list_azs: this.props.list_azs,
-
             isPL_View: true,
             isPUMP_View: true,
             isTSO_View: true,
         }
     }
-    componentDidMount() {
-        
-        demoAsyncCall().then(() => this.setState({ loading: false }));
-    }
-    componentDidUpdate(prevProps) {
-        if (this.props.list_azs != prevProps.list_azs) {
-            this.setState({ list_azs: this.props.list_azs });
-        }
-    }
+
+
     getStyle_PL(Crit) {
         let _background = getColor_Crit(Crit);//'white';
         return {
@@ -140,94 +128,70 @@ export default class w_table_azs extends React.Component {
         return isView;
     }
     render() {
-        /***** Ждать *****************/
-        const { loading } = this.state;
-        if (loading) {
-            let stayle_1 = {
-                marginTop: '130px',
-            }
-            return (
-                <div align="center">
-                    <center><h1>Запрос данных.</h1></center>
-                    <img src='images/anim_engine.gif' style={stayle_1} />
-                </div>
-            );
-        }
-        /***** Ждать *****************/
-
         let w_table_Main = {
             background: "#F0F0F0"
         }
-        if (this.state.list_book != null && this.state.list_azs != null) {
-            return (
-                <div>
-                    <table style={w_table_Main}>
-                        <tbody>
-                            {
-                                this.state.list_book.map(el =>
-                                    (WhatKeyNotShow(el.key) && this.isShow_Row_Type(el)) &&
-                                    (
-                                        (el.isDVC)
-                                            ? (
-                                                <tr key={createGuid()}>
-                                                    <Two_Coll el={el} _Debuge_Show_Code={this.props._Debuge_Show_Code} />
+        return (
+            <div>
+                <table style={w_table_Main}>
+                    <tbody>
+                        {
+                            this.props.list_book_row.map(el =>
+                                (WhatKeyNotShow(el.key) && this.isShow_Row_Type(el)) &&
+                                (
+                                    (el.isDVC)
+                                        ? (
+                                            <tr key={createGuid()}>
+                                                <Two_Coll el={el}/>
 
-                                                    {this.state.list_azs != null &&
-                                                        this.state.list_azs.map((el_azsS, n) => (
-                                                            el_azsS.map(el_azs => (
-                                                                (el.key == el_azs.key && el.type == el_azs.type) &&
-                                                                <td key={createGuid()} colSpan={el_azs.ColSpan}
-                                                                    style={this.getStyle(el_azs)}>
-                                                                    <Single_Coll el={el_azs}
-                                                                        el_azsS={el_azsS}
-                                                                        _Debuge_Show_Code={this.props._Debuge_Show_Code}
-                                                                        _Debuge_Show_Crit={this.props._Debuge_Show_Crit}
-                                                                    />
-                                                                </td>
-                                                            ))
-                                                        ))}
-                                                </tr>
-                                            )
-                                            : (
+                                                {this.props.List_dvc_azs != null &&
+                                                    this.props.List_dvc_azs.map((el_azsS, n) => (
+                                                        el_azsS.map(el_azs => (
+                                                            (el.key == el_azs.key && el.type == el_azs.type) &&
+                                                            <td key={createGuid()} colSpan={el_azs.ColSpan}
+                                                                style={this.getStyle(el_azs)}>
+                                                                <Single_Coll el={el_azs}
+                                                                    el_azsS={el_azsS}
+                                                                />
+                                                            </td>
+                                                        ))
+                                                    ))}
+                                            </tr>
+                                        )
+                                        : (
 
-                                                <tr key={createGuid()}>
-                                                    {/*нулевая колонка*/}
-                                                    <td key={createGuid()} colSpan='2' id='style_TD'>
-                                                        <Single_Coll el={el}
-                                                            setFilter={this.setFilter} UP={this.get_Up(el)}
-                                                            _Debuge_Show_Code={this.props._Debuge_Show_Code}
-                                                            _Debuge_Show_Crit={this.props._Debuge_Show_Crit}
-                                                        />
-                                                    </td>
+                                            <tr key={createGuid()}>
+                                                {/*нулевая колонка*/}
+                                                <td key={createGuid()} colSpan='2' id='style_TD'>
+                                                    <Single_Coll el={el}
+                                                        setFilter={this.setFilter} UP={this.get_Up(el)}
+                                                    />
+                                                </td>
 
-                                                    {/*колонки данные*/}
-                                                    {this.state.list_azs != null &&
-                                                        this.state.list_azs.map((el_azsS, n) => (
-                                                            el_azsS.map(el_azs => (
-                                                                (el.key == el_azs.key && el.type == el_azs.type && el_azs.ID != 0) &&
+                                                {/*колонки данные*/}
+                                                {this.props.List_dvc_azs != null &&
+                                                    this.props.List_dvc_azs.map((el_azsS, n) => (
+                                                        el_azsS.map(el_azs => (
+                                                            (el.key == el_azs.key && el.type == el_azs.type && el_azs.ID != 0) &&
 
-                                                                <td key={createGuid()} colSpan={el_azs.ColSpan}
-                                                                    style={this.getStyle(el_azs)}>
-                                                                    <Single_Coll el={el_azs}
-                                                                        UP={this.get_Up(el)}
-                                                                        _Fuels={this.props._Fuels}
-                                                                        _Debuge_Show_Code={this.props._Debuge_Show_Code}
-                                                                        _Debuge_Show_Crit={this.props._Debuge_Show_Crit}
-                                                                    />
-                                                                </td>
-                                                            ))
-                                                        ))}
-                                                </tr>
-                                            )
-                                    )
+                                                            <td key={createGuid()} colSpan={el_azs.ColSpan}
+                                                                style={this.getStyle(el_azs)}>
+                                                                <Single_Coll el={el_azs}
+                                                                    UP={this.get_Up(el)}
+                                                                    _Fuels={this.props.list_fuels}
+
+                                                                />
+                                                            </td>
+                                                        ))
+                                                    ))}
+                                            </tr>
+                                        )
                                 )
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            );
-        } else {
-            return (<h2> Нет данных.</h2>);
-        }
+                            )
+                        }
+                    </tbody>
+                </table>
+            </div>
+        );
     }
 }

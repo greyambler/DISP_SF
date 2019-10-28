@@ -11,13 +11,15 @@ import W_tso_First from './TSO/tso_First.jsx'
 import W_tso_Head from './TSO/tso_Head.jsx'
 
 import W_filter_tr from './filter_tr.jsx'
-
 import W_pl_First from './PL/pl_First.jsx'
 import W_pl_Head from './PL/pl_Head.jsx'
-
 import W_azs_Head from './azs_Head.jsx'
 
 import W_tso_Rec_button from './TSO/tso_Rec_button.jsx'
+
+
+const _Debuge_Show_Code = false;
+const _Debuge_Show_Crit = false;
 
 
 export default class single_coll extends React.Component {
@@ -25,7 +27,7 @@ export default class single_coll extends React.Component {
         super(props);
     }
     render() {
-        let text = get_Num(this.props.el, this.props._Debuge_Show_Crit, this.props._Debuge_Show_Code);
+        let text = get_Num(this.props.el, _Debuge_Show_Crit, _Debuge_Show_Code);
         if (this.props.el.ID == 0 && this.props.el.key == "nm") {
             switch (this.props.el.type) {
                 case "pl": {
@@ -104,7 +106,7 @@ export default class single_coll extends React.Component {
                     //width: '60px',
                 }
                 let title_Text = text;
-                if (this.props._Debuge_Show_Code) {
+                if (_Debuge_Show_Code) {
                     return (
                         <center style={_style} title={title_Text}>{text + " [ " + this.props.el.key + " / " + this.props.el.main_type + " ]"}</center>
                     );

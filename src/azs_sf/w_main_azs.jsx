@@ -6,14 +6,10 @@ import { RSS_AZS, Get_Main_PROPS_AZS } from '../core/core_Function.jsx'
 
 
 const _Debuge = false;
-const _Debuge_Show_Code = false;
-const _Debuge_Show_Crit = false;
-const _Debuge_Alert = true;
 
 export default class w_main_azs extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             list_dvc_id: null,
         }
@@ -27,7 +23,7 @@ export default class w_main_azs extends React.Component {
         if (this.props._List_AZS != null) {
             let M_ID = new Array();
             for (const iterator of this.props._List_AZS) {
-                let m = await this.tick_dev_AZS(RSS_AZS, iterator.id);
+                let m = await this.tick_azs_id(RSS_AZS, iterator.id);
                 if (m != null && m.length > 0) {
                     M_ID.push(m);
                 }
@@ -36,7 +32,7 @@ export default class w_main_azs extends React.Component {
         }
     }
 
-    async tick_dev_AZS(RES, id_azs) {
+    async tick_azs_id(RES, id_azs) {
         let rss = RES + '/' + id_azs;
         var myRequest = new Request(rss);
         try {
@@ -75,17 +71,11 @@ export default class w_main_azs extends React.Component {
         ) {
             return (
                 <W_List_azs
-                    list_book={this.props.list_book}
+                    list_book_row={this.props.list_book_row}
                     list_dvc_id={this.state.list_dvc_id}
-
                     _List_AZS={this.props._List_AZS}
-                    _Fuels={this.props._Fuels}
-                    _List_Main={this.props._List_Main}
-
-                    _Debuge={_Debuge}
-                    _Debuge_Show_Code={_Debuge_Show_Code}
-                    _Debuge_Show_Crit={_Debuge_Show_Crit}
-                    _Debuge_Alert={_Debuge_Alert}
+                    list_fuels={this.props.list_fuels}
+                    list_type_dvc={this.props.list_type_dvc}
 
                 />
             );
