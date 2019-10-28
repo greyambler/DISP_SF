@@ -20,7 +20,6 @@ export default class w_table_azs extends React.Component {
         }
     }
 
-
     getStyle_PL(Crit) {
         let _background = getColor_Crit(Crit);//'white';
         return {
@@ -142,7 +141,7 @@ export default class w_table_azs extends React.Component {
                                     (el.isDVC)
                                         ? (
                                             <tr key={createGuid()}>
-                                                <Two_Coll el={el}/>
+                                                <Two_Coll el={el} />
 
                                                 {this.props.List_dvc_azs != null &&
                                                     this.props.List_dvc_azs.map((el_azsS, n) => (
@@ -150,7 +149,8 @@ export default class w_table_azs extends React.Component {
                                                             (el.key == el_azs.key && el.type == el_azs.type) &&
                                                             <td key={createGuid()} colSpan={el_azs.ColSpan}
                                                                 style={this.getStyle(el_azs)}>
-                                                                <Single_Coll el={el_azs}
+                                                                <Single_Coll
+                                                                    el={el_azs}
                                                                     el_azsS={el_azsS}
                                                                 />
                                                             </td>
@@ -163,8 +163,10 @@ export default class w_table_azs extends React.Component {
                                             <tr key={createGuid()}>
                                                 {/*нулевая колонка*/}
                                                 <td key={createGuid()} colSpan='2' id='style_TD'>
-                                                    <Single_Coll el={el}
-                                                        setFilter={this.setFilter} UP={this.get_Up(el)}
+                                                    <Single_Coll
+                                                        el={el}
+                                                        setFilter={this.setFilter}
+                                                        UP={this.get_Up(el)}
                                                     />
                                                 </td>
 
@@ -176,9 +178,10 @@ export default class w_table_azs extends React.Component {
 
                                                             <td key={createGuid()} colSpan={el_azs.ColSpan}
                                                                 style={this.getStyle(el_azs)}>
-                                                                <Single_Coll el={el_azs}
+                                                                <Single_Coll
+                                                                    el={el_azs}
                                                                     UP={this.get_Up(el)}
-                                                                    _Fuels={this.props.list_fuels}
+                                                                    list_fuels={this.props.list_fuels}
 
                                                                 />
                                                             </td>

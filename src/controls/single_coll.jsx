@@ -83,23 +83,23 @@ export default class single_coll extends React.Component {
                 return (<center> <W_azs_Head text={text} /></center>);
             } else if (this.props.el.ID != 0 && this.props.el.type == "pl" && this.props.el.key == "nm" && text != "" && this.props.UP) {
                 //шапка Резервуар 
-                return (<center> <W_pl_Head text={text} el={this.props.el} _Fuels={this.props._Fuels} /> </center>);
+                return (<center> <W_pl_Head text={text} el={this.props.el} _Fuels={this.props.list_fuels} /> </center>);
             } else if (this.props.el.ID != 0 && this.props.el.type == "pump" && this.props.el.key == "nm" && text != "" && this.props.UP) {
                 //шапка ТРК 
-                return (<center> <W_trk_Head text={text} el={this.props.el} _Fuels={this.props._Fuels} /> </center>);
+                return (<center> <W_trk_Head text={text} el={this.props.el} _Fuels={this.props.list_fuels} /> </center>);
             } else if (this.props.el.ID != 0 && this.props.el.type == "tso" && this.props.el.key == "nm" && text != "" && this.props.UP) {
                 //шапка TCO - CONN_STATE
-                return (<center> <W_tso_Head text={text} el={this.props.el} _Fuels={this.props._Fuels} /> </center>);
+                return (<center> <W_tso_Head text={text} el={this.props.el} _Fuels={this.props.list_fuels} /> </center>);
             } else if (this.props.el.ID != 0 && this.props.el.type == "fr" && this.props.el.key == "nm" && text != "") {
                 //шапка ФР 
-                return (<center><W_tso_Rec_button text={text} title="Перезагрузка ФР" type_Body='restart_fr' el={this.props.el} el_azsS={this.props.el_azsS} _Fuels={this.props._Fuels} /></center>);
+                return (<center><W_tso_Rec_button text={text} title="Перезагрузка ФР" type_Body='restart_fr' el={this.props.el} el_azsS={this.props.el_azsS} _Fuels={this.props.list_fuels} /></center>);
 
             } else if (this.props.el.ID != 0 && this.props.el.type == "cash" && this.props.el.key == "nm" && text != "") {
                 //шапка Купюроприёмник	
-                return (<center><W_tso_Rec_button text={text} title="Перезагрузка Купюроприёмника" type_Body='restart_cash' el={this.props.el} el_azsS={this.props.el_azsS} _Fuels={this.props._Fuels} /></center>);
+                return (<center><W_tso_Rec_button text={text} title="Перезагрузка Купюроприёмника" type_Body='restart_cash' el={this.props.el} el_azsS={this.props.el_azsS} _Fuels={this.props.list_fuels} /></center>);
             } else if (this.props.el.ID != 0 && this.props.el.type == "msc" && this.props.el.key == "nm" && text != "") {
                 //шапка МФК 
-                return (<center><W_tso_Rec_button text={text} title="Перезагрузка ПК" type_Body='restart_pc' el={this.props.el} el_azsS={this.props.el_azsS} _Fuels={this.props._Fuels} /></center>);
+                return (<center><W_tso_Rec_button text={text} title="Перезагрузка ПК" type_Body='restart_pc' el={this.props.el} el_azsS={this.props.el_azsS} _Fuels={this.props.list_fuels} /></center>);
             } else {
                 let _style = {
                     fontSize: '9px',

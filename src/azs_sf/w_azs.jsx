@@ -68,8 +68,6 @@ export default class w_azs extends React.Component {
                                 //this.setState({ data: JSON.parse(evt.data) });// Рабочий
                                 //this.add_messages("\n" + evt.data);
                                 console.log('***JSON*********************' + evt.data);
-                            } else {
-                                let r = 0;
                             }
                         } catch (error) {
                             console.log('******WS******************' + error);
@@ -186,7 +184,6 @@ export default class w_azs extends React.Component {
             <W_table_azs
                 list_book_row={this.props.list_book_row}
                 list_fuels={this.props.list_fuels}
-
                 List_dvc_azs={this.state.List_dvc_azs}
             />
         );
