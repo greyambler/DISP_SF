@@ -19,7 +19,6 @@ export default class w_table_azs extends React.Component {
             isTSO_View: true,
         }
     }
-
     getStyle_PL(Crit) {
         let _background = getColor_Crit(Crit);//'white';
         return {

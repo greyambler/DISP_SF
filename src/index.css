@@ -260,3 +260,12 @@ td {
   vertical-align: top;
   background: white;
 }
+
+#_button{
+  width: 120px;
+  height: 27px;
+  min-width: 60px;
+  margin: 5px;
+  
+  /*background: #A5ABB3;*/
+}

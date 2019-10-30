@@ -18,6 +18,10 @@ import { BrowserRouter as Router, Route, Link, Switch, Redirect } from "react-ro
 import { Link as S_Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import W_AZS_SF from './w_AZS_SF.jsx'
+
+import W_main_edit_azs from './azs_sf/edit/w_main_edit_azs.jsx'
+
+
 import W_Login from './w_Login.jsx'
 
 import W_LeftPanel from './test/w_LeftPanel.jsx'
@@ -73,6 +77,18 @@ class AZS_SF extends Component {
       history={this.props.history} />);
   }
 }
+
+class Edit_List_AZS extends Component {
+  render() {
+
+    return (<W_main_edit_azs
+      w_Height={this.props.w_Height}
+      w_Width={this.props.w_Width}
+      history={this.props.history} />);
+  }
+}
+
+
 class CleanTOKEN extends Component {
   render() {
     saveToken(null);
@@ -242,7 +258,17 @@ class Nav extends Component {
             <ul className="submenu">
               <li><Link to="/" >Главная</Link></li>
               <li><Link to="/AZS_SF" >Начальная</Link></li>
-              <li><Link to="/settings">Настройки</Link></li>
+
+              <li><Link to="/"><center>Справочники&gt;&gt;</center></Link>
+                <ul className="submenu">
+                  <li><Link to="/List_Edit_AZS" >Справочник АЗК</Link></li>
+                  <li><Link to="/settings">Настройки</Link></li>
+                </ul>
+              </li>
+
+
+
+
               <li><Link to="/clean">Очистить</Link></li>
               <li><Link to="/help">Помощь</Link></li>
               {_Debuge_TestMenu &&
@@ -315,6 +341,7 @@ export default class App extends Component {
       console.log(error);
     }
   }
+
   render() {
     const { animation, dimmed, direction, visible } = this.state
     const vertical = direction === 'bottom' || direction === 'top'
@@ -376,6 +403,14 @@ export default class App extends Component {
 
                 <Route exact path="/AccordPanel" render={({ history }) => <AccordPanel w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                   history={history} />} />
+
+
+                <Route exact path="/List_Edit_AZS" render={({ history }) => <Edit_List_AZS w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                  history={history} />} />
+
+
+
+
                 <Route exact component={NotFound} />
               </Switch>
 

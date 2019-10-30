@@ -66,6 +66,7 @@ export default class w_azs extends React.Component {
                                 this.full_Key_Value(JSON.parse(evt.data));
 
                                 //this.setState({ data: JSON.parse(evt.data) });// Рабочий
+
                                 //this.add_messages("\n" + evt.data);
                                 console.log('***JSON*********************' + evt.data);
                             }
@@ -135,7 +136,6 @@ export default class w_azs extends React.Component {
         }
         return _fuel;
     }
-
     async full_Key_Value(data) {
         if (this.state.List_dvc_azs != null && data != null) {
             for (const data_val of data.values) {
@@ -177,14 +177,14 @@ export default class w_azs extends React.Component {
             this.setState({ List_dvc_azs: this.state.List_dvc_azs });
         }
     }
-
     render() {
-
         return (
             <W_table_azs
                 list_book_row={this.props.list_book_row}
                 list_fuels={this.props.list_fuels}
                 List_dvc_azs={this.state.List_dvc_azs}
+
+                data={this.state.data}
             />
         );
     }

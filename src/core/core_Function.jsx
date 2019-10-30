@@ -446,7 +446,7 @@ export function get_Json_String(mstring) {
             for (const item of m) {
                 R_Mas.push(item);
             }
-        }else{
+        } else {
             R_Mas.push(m);
         }
     }
@@ -493,6 +493,75 @@ export function getColor_Crit(Crit) {
     }
     return _color;
 }
+
+export function Get_Val(mas, key, isFull) {
+    let R = "";
+    let len = mas.length;
+    if (len > 0) {
+        if (mas[len - 1][key] != null) {
+            if (mas[len - 1][key].text != undefined) {
+                R = mas[len - 1][key].text;
+            } else {
+                R = mas[len - 1][key];
+            }
+        }
+    }
+    R = isFull
+        ? R
+        : (R.length > 36) ? R.substr(0, 36) : R;
+    return R;
+}
+
+
+export function get_KeyHead(key) {
+    let KeyHead = '';
+    switch (key) {
+        case "id": {
+            KeyHead = "id_guid";
+            break;
+        }
+        case "iid": {
+            KeyHead = "индекс";
+            break;
+        }
+        case "dispname": {
+            KeyHead = "Название объекта";
+            break;
+        }
+        case "th_code": {
+            KeyHead = "TH код объекта";
+            break;
+        }
+        case "order_num": {
+            KeyHead = "Номер объекта";
+            break;
+        }
+        case "shortname": {
+            KeyHead = "Название";
+            break;
+        }
+        case "region_code": {
+            KeyHead = "Код региона";
+            break;
+        }
+        case "region_name": {
+            KeyHead = "Имя региона";
+            break;
+        }
+        case "address": {
+            KeyHead = "Адрес";
+            break;
+        }
+        case "telefon": {
+            KeyHead = "Телефоны";
+            break;
+        }
+    }
+    return KeyHead;
+}
+
+
+
 
 /*
 
