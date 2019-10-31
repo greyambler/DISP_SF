@@ -8,18 +8,13 @@ import Konva from 'konva';
 export default class AZS_Image extends React.Component {
    constructor(props) {
       super(props);
-      //this.ON_Click = this.ON_Click.bind(this);
       this.state = {
          _W: this.props._W,
          _H: this.props._H,
          _X: this.props._X,
          _Y: this.props._Y,
          Image: null,
-
          el: this.props.el,
-
-         //         image: null
-
       };
    }
    componentDidMount() {
@@ -41,14 +36,7 @@ export default class AZS_Image extends React.Component {
    handleLoad = () => {
       this.setState({ Image: this.image });
    };
-   /*
-   ON_Click() {
-      if (this.props.on_Click != null) {
-         this.props.on_Click(this.state.el);
-      }
-   }
-   */
-
+   
    render() {
       return (
          <>
@@ -65,14 +53,6 @@ export default class AZS_Image extends React.Component {
                   this.props.show_Message != null &&
                      this.props.show_Message(this.props.message)
                }}
-
-            /*               onMouseover={() => {
-                              this.setState({
-                                 label: 'x=' + this.state.mouse_x + ', ' + 'y= ' + this.state.mouse_y,
-                                 label_x: this.state.mouse_x,
-                                 label_y: this.state.mouse_y
-                              }, () => { console.log('label=' + this.state.label) })
-                           }}*/
             />
          </>
       );

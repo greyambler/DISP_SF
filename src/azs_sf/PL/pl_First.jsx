@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Stage, Layer, Rect, Text, Circle, Shape, Image } from 'react-konva';
 
-import AZS_Image from '../AZS_Image.jsx'
+import AZS_Image from '../../controls/AZS_Image.jsx'
 
 export default class pl_First extends React.Component {
     constructor(props) {

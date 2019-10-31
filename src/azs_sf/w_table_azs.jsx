@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { demoAsyncCall, createGuid, WhatKeyNotShow, getColor_Crit } from '../core/core_Function.jsx'
-import Single_Coll from '../controls/single_coll.jsx'
-import Two_Coll from '../controls/two_coll.jsx'
+import Single_Coll from './single_coll.jsx'
+import Two_Coll from './two_coll.jsx'
 
 
 const _Debuge = false;

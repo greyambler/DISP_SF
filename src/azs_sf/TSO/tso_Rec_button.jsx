@@ -4,7 +4,7 @@ import { get_Num, getColor_Crit, POST } from '../../core/core_Function.jsx'
 import { Stage, Layer, Rect, Text, Line, Circle, Shape } from 'react-konva';
 import Konva from "konva";
 
-import AZS_Image from '../AZS_Image.jsx'
+import AZS_Image from '../../controls/AZS_Image.jsx'
 
 const _Debuge = false;
 const _Debuge_Message = true;

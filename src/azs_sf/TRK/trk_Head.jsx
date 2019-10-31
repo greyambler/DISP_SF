@@ -6,7 +6,7 @@ import { Stage, Layer, Rect, Text, Line, Circle, Shape, Image } from 'react-konv
 
 import Konva from "konva";
 
-import AZS_Image from '../AZS_Image.jsx'
+import AZS_Image from '../../controls/AZS_Image.jsx'
 
 const _Debuge_Message = true;
 
