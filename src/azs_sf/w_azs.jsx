@@ -42,7 +42,7 @@ export default class w_azs extends React.Component {
     }
     componentDidMount() {
         let N_list_dvc_azs = cope_Mass(this.props.list_dvc_azs)
-        //this.setState({ List_dvc_azs: N_list_dvc_azs }, this.start_ws());
+        this.setState({ List_dvc_azs: N_list_dvc_azs });//, this.start_ws());
     }
     componentWillUnmount() {
         this.stop_ws();
