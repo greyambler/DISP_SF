@@ -146,7 +146,7 @@ td, th, tr {
   /*background: maroon;  Цвет фона ячеек */
   padding: 0px;
   /* Поля вокруг текста        
-  border: 1px solid hotpink;  */
+  border: 1px solid hotpink;    */
   /*min-width: 20px;*/
 }
 
@@ -268,4 +268,25 @@ td {
   margin: 5px;
   
   /*background: #A5ABB3;*/
+}
+
+
+.Min_button_White {
+  padding: 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  width: 27px;
+  height: 29px;
+  /*Скругленные углы*/
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+  background: linear-gradient(white, whitesmoke) rgb(126, 255, 255);
+  transition: 0.2s;
+  color: white;
+  margin-left: 20px;
+  
 }

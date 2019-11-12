@@ -19,6 +19,11 @@ export default class azs_Head extends React.Component {
     }
 
 
+    AZS_ERROR_Onclick(id_azs) {
+        //alert("Тест = " + id_azs);
+        //history={this.props.history}
+        this.props.history.push('/azs_listerror&' + id_azs);
+    }
 
     render() {
         let S_width = 120;
@@ -35,7 +40,16 @@ export default class azs_Head extends React.Component {
             color: '#000000',
         }
         return (
-            <center><p style={Head_Staly}>{this.props.text}</p></center>
+            <center><p style={Head_Staly}>{this.props.text}
+
+                <button className='Min_button_White' title="Журнал ошибок" 
+                onClick={() => this.AZS_ERROR_Onclick(this.props.ID)}>
+                    <div align="center">
+                        <img src='images/anim_engine.gif' width="15px" />
+                    </div>
+                </button>
+            </p>
+            </center>
         );
     }
 }

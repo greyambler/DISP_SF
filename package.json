@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "konva": "^4.0.15",
+    "moment": "^2.24.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-konva": "^16.10.1-0",

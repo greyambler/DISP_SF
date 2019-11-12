@@ -21,6 +21,8 @@ import W_AZS_SF from './w_AZS_SF.jsx'
 
 import W_main_edit_azs from './azs_sf/edit/w_main_edit_azs.jsx'
 
+import W_ListErr_AZS from './azs_sf/j_err/listErr_AZS.jsx';
+
 
 import W_Login from './w_Login.jsx'
 
@@ -85,6 +87,14 @@ class Edit_List_AZS extends Component {
       w_Height={this.props.w_Height}
       w_Width={this.props.w_Width}
       history={this.props.history} />);
+  }
+}
+
+class AZS_listerror extends Component {
+  render() {
+    return (<W_ListErr_AZS w_Height={this.props.w_Height} w_Width={this.props.w_Width} _List_Objs={this.props._List_Objs}
+      azs_id={this.props.azs_id}
+    />);
   }
 }
 
@@ -199,6 +209,7 @@ class Nav extends Component {
                       </td>
                     }
                     <td id='td_mb'>
+                    
                       <Link to="/" className="test3">Меню</Link>
                     </td>
                   </tr>
@@ -409,6 +420,12 @@ export default class App extends Component {
                   history={history} />} />
 
 
+                <Route exact path="/azs_listerror&*" render={(ev) => <AZS_listerror
+                  azs_id={ev.match.params[0]}
+                  w_Height={this.state.W_Height} w_Width={this.state.W_Width}
+                  _List_Objs={this.state._List_Objs}
+                  history={this.props.history}
+                />} />
 
 
                 <Route exact component={NotFound} />

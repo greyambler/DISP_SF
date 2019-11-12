@@ -158,7 +158,6 @@ export default class w_table_azs extends React.Component {
                                             </tr>
                                         )
                                         : (
-
                                             <tr key={createGuid()}>
                                                 {/*нулевая колонка*/}
                                                 <td key={createGuid()} colSpan='2' id='style_TD'>
@@ -182,6 +181,7 @@ export default class w_table_azs extends React.Component {
                                                                     UP={this.get_Up(el)}
                                                                     list_fuels={this.props.list_fuels}
 
+                                                                    history={this.props.history}
                                                                 />
                                                             </td>
                                                         ))

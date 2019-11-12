@@ -26,6 +26,8 @@ export default class single_coll extends React.Component {
     constructor(props) {
         super(props);
     }
+
+
     render() {
         let text = get_Num(this.props.el, _Debuge_Show_Crit, _Debuge_Show_Code);
         if (this.props.el.ID == 0 && this.props.el.key == "nm") {
@@ -80,7 +82,7 @@ export default class single_coll extends React.Component {
         } else {
             if (this.props.el.ID != 0 && this.props.el.type == "azs" && this.props.el.key == "nm" && text != "" && this.props.UP) {
                 //шапка AZS 
-                return (<center> <W_azs_Head text={text} /></center>);
+                return (<center><W_azs_Head text={text} ID={this.props.el.ID} history={this.props.history} /></center>);
             } else if (this.props.el.ID != 0 && this.props.el.type == "pl" && this.props.el.key == "nm" && text != "" && this.props.UP) {
                 //шапка Резервуар 
                 return (<center> <W_pl_Head text={text} el={this.props.el} _Fuels={this.props.list_fuels} /> </center>);

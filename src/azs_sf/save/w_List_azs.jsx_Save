@@ -11,12 +11,13 @@ export default class w_List_azs extends React.Component {
         super(props);
         this.state = {
             list_azs: null,
-            list_dvc_azs: null,
+            list_dvc_azs: this.props.list_dvc_azs,//null,
         }
     }
     componentDidMount() {
         this.get_ALL_DVC();
     }
+
     async get_ALL_DVC() {
         let BOOK_All_AZSs = new Array();
         let _list_AZS = new Array();
@@ -28,10 +29,10 @@ export default class w_List_azs extends React.Component {
                     _list_AZS.push(item);
                     BOOK_All_AZSs.push(BOOK_AZS);
                 }
-                l = 0;
+                l = 1;
             }
         }
-        this.setState({ list_dvc_azs: BOOK_All_AZSs, list_azs: _list_AZS });//
+        this.setState({ list_dvc_azs: BOOK_All_AZSs, list_azs: _list_AZS });
     }
     async tick_dev_AZS(RES, id_azs) {
         let rss = RES + '/' + id_azs;
@@ -82,9 +83,7 @@ export default class w_List_azs extends React.Component {
         }
     }
     render() {
-        if (this.state.list_azs != null
-            && this.state.list_dvc_azs != null
-        ) {
+        if (this.state.list_azs != null && this.state.list_dvc_azs != null) {
             return (
                 <W_azs
                     list_book_row={this.props.list_book_row}
@@ -93,6 +92,8 @@ export default class w_List_azs extends React.Component {
 
                     _List_AZS={this.state.list_azs}
                     list_dvc_azs={this.state.list_dvc_azs}
+
+                    history={this.props.history}
                 />
             );
         } else {

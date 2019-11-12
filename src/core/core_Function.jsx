@@ -11,6 +11,10 @@ export const WS = "ws://172.23.16.18:8080/dpsock-1.0-SNAPSHOT/alwsc";
 
 export const POST = IP_Server + "/dprest-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.com";
 
+
+export const AZS_List_Error = IP_Server + "/dpmark-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpinside.mark";
+
+
 export let Curent_Login = "";
 
 /** справочник */
@@ -119,6 +123,7 @@ function set_AZS_name(BOOK_All) {
         key: "nm", key_value: " ", isDVC: false
     });
 }
+
 export function Get_Main_PROPS(List_Main) {
     let BOOK_All = new Array();
     if (List_Main != null) {
@@ -133,7 +138,86 @@ export function Get_Main_PROPS(List_Main) {
     }
     return BOOK_All;
 }
+
 /** справочник */
+
+export function Get_RSS(Rss, startDate, endDate) {
+    var rss = Rss;
+
+    if (startDate != null && endDate != null) {
+        let IsOne = D1_D1_Eq_moment(startDate, endDate);
+        if (IsOne) {
+            rss = rss + "?date=" + GetDateYMD_moment(startDate);
+        }
+        else {
+            rss = rss + "?from="
+                + GetDateYMD_moment(startDate)
+                + "&to="
+                + GetDateYMD_moment(endDate);
+        }
+    }
+    return rss;
+}
+export function D1_D1_Eq_moment(_M1, _M2) {
+    if (_M1 != null && _M2 != null) {
+        try {
+            var d1 = _M1.date();
+            var m1 = _M1.month();
+            var y1 = _M1.year();
+
+            var d2 = _M2.date();
+            var m2 = _M2.month();
+            var y2 = _M2.year();
+
+            if ((y1 == y2) && (m1 == m2) && (d1 == d2)) {
+                return true;
+            }
+        }
+        catch{ }
+    }
+    return false;
+}
+export function GetDateYMD_moment(_moment) {
+    if (_moment != null) {
+        var day = _moment.date();
+        var month = _moment.month() + 1;
+        var year = _moment.year();
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        var today = year + "-" + month + "-" + day;
+
+        return today;
+    }
+    else {
+        return GetDateNow();
+    }
+}
+/*
+export function GetDateDMY_moment(_moment) {
+  if (_moment != null) {
+     var day = _moment.date();
+     var month = _moment.month();
+     var year = _moment.year();
+     if (month < 10) month = "0" + month;
+     if (day < 10) day = "0" + day;
+     var today = day + "/" + month + "/" + year;
+     return today;
+  }
+  else {
+     return GetDateNow();
+  }
+}
+*/
+export function GetDateNow() {
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+    var today = year + "-" + month + "-" + day;
+    return today;
+}
 
 
 function Get_MAX_COL(mass_DVC) {

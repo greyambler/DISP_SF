@@ -141,14 +141,11 @@ export default class w_AZS_SF extends React.Component {
                     w_Width={this.props.w_Width}
                     history={this.props.history}
 
-
-
                     list_book_row={this.state.list_book_row}
                     list_type_dvc={this.state.list_type_dvc}
                     _List_AZS={this.state._List_AZS}
 
                     list_fuels={this.state.list_fuels}
-
                 />
             );
         } else {
