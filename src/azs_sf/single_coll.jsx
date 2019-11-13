@@ -17,6 +17,8 @@ import W_azs_Head from './azs_Head.jsx'
 
 import W_tso_Rec_button from './TSO/tso_Rec_button.jsx'
 
+import W_prop_value from './prop_value.jsx'
+
 
 const _Debuge_Show_Code = false;
 const _Debuge_Show_Crit = false;
@@ -95,7 +97,6 @@ export default class single_coll extends React.Component {
             } else if (this.props.el.ID != 0 && this.props.el.type == "fr" && this.props.el.key == "nm" && text != "") {
                 //шапка ФР 
                 return (<center><W_tso_Rec_button text={text} title="Перезагрузка ФР" type_Body='restart_fr' el={this.props.el} el_azsS={this.props.el_azsS} _Fuels={this.props.list_fuels} /></center>);
-
             } else if (this.props.el.ID != 0 && this.props.el.type == "cash" && this.props.el.key == "nm" && text != "") {
                 //шапка Купюроприёмник	
                 return (<center><W_tso_Rec_button text={text} title="Перезагрузка Купюроприёмника" type_Body='restart_cash' el={this.props.el} el_azsS={this.props.el_azsS} _Fuels={this.props.list_fuels} /></center>);
@@ -114,7 +115,12 @@ export default class single_coll extends React.Component {
                     );
                 }
                 else {
-                    return (<>{text}</>);
+                    if (this.props.el.ID == 0) {
+                        return (<>{text}</>);
+                    } else {
+                        /*return (<>{text}</>);*/
+                        return <W_prop_value prop_value={text} el={this.props.el} />
+                    }
                 }
             }
         }

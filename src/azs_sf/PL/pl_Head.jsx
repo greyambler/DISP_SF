@@ -26,7 +26,7 @@ function get_PL(id, nameCommand) {
 }
 function get_ai_Image(_Fuels, el) {
     let name = "";
-    let Image = '/images/PL/00.png';
+    let Image = '/images/PL/null.png';
     if (_Fuels != null && el != null && el.fuel != null) {
         for (const item of _Fuels) {
             if (item.id == el.fuel) {
@@ -49,10 +49,6 @@ function get_ai_Image(_Fuels, el) {
             }
             case "92": {
                 Image = '/images/PL/92.png'
-                break;
-            }
-            default: {
-                Image = '/images/PL/00.png'
                 break;
             }
         }

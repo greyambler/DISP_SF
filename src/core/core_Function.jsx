@@ -324,10 +324,15 @@ export function Get_Main_PROPS_AZS(azs, mass_DVC, List_Main) {
         if (list_TSO_col.dvctyptree != undefined) { // заполнить данными по dvctyptree
             Get_DVC_TREE(BOOK_All, C_TSO, max_Col, azs.id, "tso", list_TSO_col.dvctyptree, mass_DVC);
         }
+
+
+
         /* if (list_PUMP_col.dvctyptree != undefined) { // заполнить данными по dvctyptree
              Get_DVC_TREE(BOOK_All, C_PUMP, max_Col, azs.id, "pump", list_PUMP_col.dvctyptree, mass_DVC);
          }
          */
+
+         
     }
     return BOOK_All;
 }

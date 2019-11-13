@@ -21,7 +21,7 @@ import W_AZS_SF from './w_AZS_SF.jsx'
 
 import W_main_edit_azs from './azs_sf/edit/w_main_edit_azs.jsx'
 
-import W_ListErr_AZS from './azs_sf/j_err/listErr_AZS.jsx';
+import W_ListErr_AZS from './controls/listErr_AZS.jsx';
 
 
 import W_Login from './w_Login.jsx'
@@ -195,6 +195,85 @@ class Nav extends Component {
       <nav>
         <ul className="topmenu">
           <li>
+            <Link to="/"> <a className="test_M">Меню</a></Link>
+
+            <ul className="submenu">
+              <li><Link to="/" >Главная</Link></li>
+              <li><Link to="/AZS_SF" >Начальная</Link></li>
+
+              <li><Link to="/"><center>Справочники&gt;&gt;</center></Link>
+                <ul className="submenu">
+                  <li><Link to="/List_Edit_AZS" >Справочник АЗК</Link></li>
+                  <li><Link to="/settings">Настройки</Link></li>
+                </ul>
+              </li>
+              <li><Link to="/clean">Очистить</Link></li>
+              <li><Link to="/help">Помощь</Link></li>
+              {_Debuge_TestMenu &&
+                <li><Link to="/"><center>Тестовая &gt;&gt;</center></Link>
+                  <ul className="submenu">
+                    <li><Link to="/LeftPanel">Левая панель</Link></li>
+                    <li><Link to="/AccordPanel">Аккордная панель</Link></li>
+                  </ul>
+                </li>
+              }
+            </ul>
+          </li>
+
+          <table className="header_Text">
+            <tbody>
+              <tr>
+                <td id='td_m'>
+                  <S_Link activeClass="active" className="test1" to="test1"
+                    spy={true} smooth={true} duration={500} offset={-40}>  цены</S_Link>
+                </td><td id='td_m'>
+                  <S_Link activeClass="active" className="test2" to="test2"
+                    spy={true} smooth={true} duration={500} offset={-40}>  тсо</S_Link>
+                </td><td id='td_m'>
+                  <S_Link activeClass="active" className="test3" to="test3"
+                    spy={true} smooth={true} duration={500} offset={-40}> трк</S_Link>
+                </td><td id='td_m'>
+                  <S_Link activeClass="active" className="test4" to="test4"
+                    spy={true} smooth={true} duration={500} offset={-40}>  резервуары</S_Link>
+                </td>
+                <td id='td_m'>
+                  <S_Link activeClass="active" className="test5" to="test5"
+                    spy={true} smooth={true} duration={500} offset={-40}> видео</S_Link>
+                </td>
+                <td id="td_max"></td>
+              </tr>
+            </tbody>
+          </table>
+          <table className="header_Left">
+            <tbody>
+              <tr>
+                <td id='td_mb'>
+                  <button className='btn_Reload' type="button" onClick={refreshPage}>
+                    <img className="header_Img" src={'../images/Repeat.png'} alt="React"
+                      width="14" height="14" />
+                  </button>
+                </td>
+                <td id='td_user'>
+                  {get_Curent_Login()}
+                </td>
+                <td id='td_mb'>
+                  <Link to="/clean">
+                    <img className="header_Img" src={'../images/log-out.png'} alt="React"
+                      width="22" height="22" />
+                  </Link>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </ul>
+      </nav>
+    );
+
+    /* return (
+      <nav>
+        <ul className="topmenu">
+          <li>
             <div className="header_Inner">
 
               <table className="header_Right">
@@ -266,6 +345,7 @@ class Nav extends Component {
                 </tbody>
               </table>
             </div>
+
             <ul className="submenu">
               <li><Link to="/" >Главная</Link></li>
               <li><Link to="/AZS_SF" >Начальная</Link></li>
@@ -276,10 +356,6 @@ class Nav extends Component {
                   <li><Link to="/settings">Настройки</Link></li>
                 </ul>
               </li>
-
-
-
-
               <li><Link to="/clean">Очистить</Link></li>
               <li><Link to="/help">Помощь</Link></li>
               {_Debuge_TestMenu &&
@@ -294,7 +370,7 @@ class Nav extends Component {
           </li>
         </ul>
       </nav>
-    );
+    ); */
   }
 }
 

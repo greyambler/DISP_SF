@@ -4,7 +4,6 @@ import { demoAsyncCall, createGuid, WhatKeyNotShow, getColor_Crit } from '../cor
 import Single_Coll from './single_coll.jsx'
 import Two_Coll from './two_coll.jsx'
 
-
 const _Debuge = false;
 
 export default class w_table_azs extends React.Component {
@@ -19,41 +18,7 @@ export default class w_table_azs extends React.Component {
             isTSO_View: true,
         }
     }
-    getStyle_PL(Crit) {
-        let _background = getColor_Crit(Crit);//'white';
-        return {
-            background: _background,
-            textAlign: 'center',
-            minWidth: '120px',
-            Width: '120px',
-            maxWidth: '120px',
-
-            //fontSize: 14,
-            //maxWidth: '120px',
-        }
-    }
-    getStyle(el) {
-        let style = {
-            background: 'white',
-            //background: '#F0F0F0',
-
-            //borderWidth: '41',
-
-            minWidth: '120px',
-            Width: '120px',
-            maxWidth: '120px',
-
-            textAlign: 'center',
-
-        }
-        if (el.crit != null) {
-            let Crit = parseInt(el.crit);
-            if (!isNaN(Crit)) {
-                style = this.getStyle_PL(Crit);
-            }
-        }
-        return style;
-    }
+    
     setFilter(isView, type) {
         switch (type) {
             case "pl": { this.setState({ isPL_View: isView }); break; }
@@ -127,7 +92,14 @@ export default class w_table_azs extends React.Component {
     }
     render() {
         let w_table_Main = {
-            background: "#F0F0F0"
+            background: "#F0F0F0",
+        }
+        let style_th = {
+            background: 'white',
+            minWidth: '120px',
+            Width: '120px',
+            maxWidth: '120px',
+            textAlign: 'center',
         }
         return (
             <div>
@@ -147,7 +119,8 @@ export default class w_table_azs extends React.Component {
                                                         el_azsS.map(el_azs => (
                                                             (el.key == el_azs.key && el.type == el_azs.type) &&
                                                             <td key={createGuid()} colSpan={el_azs.ColSpan}
-                                                                style={this.getStyle(el_azs)}>
+                                                                style={style_th}
+                                                            >
                                                                 <Single_Coll
                                                                     el={el_azs}
                                                                     el_azsS={el_azsS}
@@ -175,7 +148,8 @@ export default class w_table_azs extends React.Component {
                                                             (el.key == el_azs.key && el.type == el_azs.type && el_azs.ID != 0) &&
 
                                                             <td key={createGuid()} colSpan={el_azs.ColSpan}
-                                                                style={this.getStyle(el_azs)}>
+                                                                style={style_th}
+                                                            >
                                                                 <Single_Coll
                                                                     el={el_azs}
                                                                     UP={this.get_Up(el)}

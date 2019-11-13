@@ -25,7 +25,7 @@ function get_PL(id, nameCommand) {
 }
 function get_ai_Image_L(_Fuels, el) {
     let name = "";
-    let Image = '/images/TRK/001.png';
+    let Image = '/images/TRK/null.png';
     if (_Fuels != null && el != null && el.fuel != null && !get_GoGet(el.state_trk)) {
         for (const item of _Fuels) {
             if (item.id == el.fuel) {
@@ -35,23 +35,19 @@ function get_ai_Image_L(_Fuels, el) {
         }
         switch (name) {
             case "ДТ": {
-                Image = '/images/TRK/DT.png'
+                Image = '/images/TRK/DT.png';
                 break;
             }
             case "98": {
-                Image = '/images/TRK/98.png'
+                Image = '/images/TRK/98.png';
                 break;
             }
             case "95": {
-                Image = '/images/TRK/95.png'
+                Image = '/images/TRK/95.png';
                 break;
             }
             case "92": {
-                Image = '/images/TRK/92.png'
-                break;
-            }
-            default: {
-                Image = '/images/TRK/001.png'
+                Image = '/images/TRK/92.png';
                 break;
             }
         }
@@ -60,7 +56,7 @@ function get_ai_Image_L(_Fuels, el) {
 }
 function get_ai_Image_R(_Fuels, el) {
     let name = "";
-    let Image = '/images/TRK/001.png';
+    let Image = '/images/TRK/null.png';
     if (_Fuels != null && el != null && el.fuel != null && get_GoGet(el.state_trk)) {
         for (const item of _Fuels) {
             if (item.id == el.fuel) {
@@ -70,23 +66,19 @@ function get_ai_Image_R(_Fuels, el) {
         }
         switch (name) {
             case "ДТ": {
-                Image = '/images/TRK/Drop_DT.png'
+                Image = '/images/TRK/Drop_DT.png';
                 break;
             }
             case "98": {
-                Image = '/images/TRK/Drop_98.png'
+                Image = '/images/TRK/Drop_98.png';
                 break;
             }
             case "95": {
-                Image = '/images/TRK/Drop_95.png'
+                Image = '/images/TRK/Drop_95.png';
                 break;
             }
             case "92": {
-                Image = '/images/TRK/Drop_92.png'
-                break;
-            }
-            default: {
-                Image = '/images/TRK/001.png'
+                Image = '/images/TRK/Drop_92.png';
                 break;
             }
         }
@@ -197,7 +189,6 @@ export default class trk_Head extends React.Component {
                 ? { backgroundColor: '#7CA420', overflow: 'hidden' } : { backgroundColor: '#E0E0E0', overflow: 'hidden' },
 
             style_Text: get_status_text_color(this.props.el),
-            /*  */
         }
     }
 
@@ -309,8 +300,6 @@ export default class trk_Head extends React.Component {
 
                         <AZS_Image Image={this.state.ai_Image_L} _W='30' _H='30' _X={5} _Y={55} />
                         <AZS_Image Image={this.state.ai_Image_R} _W='30' _H='30' _X={S_width - 35} _Y={55} />
-
-
                         <AZS_Image Image={this.state.dvc_Image} _W='100' _H='110' _X={7} _Y={32} />
 
 

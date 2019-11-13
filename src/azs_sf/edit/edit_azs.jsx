@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { Component, PropTypes } from 'react';
 import ReactTable from "react-table";
 
-import { Get_RSS, RSS_AZS, RSS_AZS_EDIT, Get_Val, createGuid, set_Curent_Login, get_KeyHead } from '../../core/core_Function.jsx';
+//import { Get_RSS, RSS_AZS, RSS_AZS_EDIT, Get_Val, createGuid, set_Curent_Login, get_KeyHead } from '../../core/core_Function.jsx';
 import W_row_tr from './row_TR.jsx';
 
 export default class edit_azs extends Component {
@@ -59,10 +59,20 @@ export default class edit_azs extends Component {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-      this.setState({
-         [name]: value
-      });
+      switch (name) {
+         case "shortname": {
+            if (value.length <= 5) {
+               this.setState({ [name]: value });
+            }
+            break;
+         }
+         default: {
+            this.setState({ [name]: value });
+            break;
+         }
+      }
    }
+
    async handleSubmit(event) {
 
       let OB = {
@@ -94,6 +104,7 @@ export default class edit_azs extends Component {
                   <table>
                      <tbody>
                         {/*<W_row_tr name='id' type="guid" value={this.state.id} handleInputChange={this.handleInputChange} />*/}
+                        
                         <W_row_tr name='iid' type="number" value={this.state.iid} handleInputChange={this.handleInputChange} />
                         <W_row_tr name='dispname' type="text" value={this.state.dispname} handleInputChange={this.handleInputChange} />
                         <W_row_tr name='th_code' type="number" value={this.state.th_code} handleInputChange={this.handleInputChange} />

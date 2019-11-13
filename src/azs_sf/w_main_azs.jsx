@@ -25,19 +25,22 @@ export default class w_main_azs extends React.Component {
             let M = new Array();
 
             let _list_AZS = new Array();
-
+            let l = 0;
             for (const iterator of this.props._List_AZS) {
-                let m = await this.tick_azs_id(RSS_AZS, iterator.id);
-                if (m['M_ID'] != null && m['M_ID'].length > 0) {
-                    M_ID.push(m['M_ID']);
+                if (l == 0) {
+                    let m = await this.tick_azs_id(RSS_AZS, iterator.id);
+                    if (m['M_ID'] != null && m['M_ID'].length > 0) {
+                        M_ID.push(m['M_ID']);
 
-                    //M.push(m['M']);
-                    let mas = Get_Main_PROPS_AZS(iterator, m['M'], this.props.list_type_dvc);
-                    M.push(mas);
+                        //M.push(m['M']);
+                        let mas = Get_Main_PROPS_AZS(iterator, m['M'], this.props.list_type_dvc);
+                        M.push(mas);
 
-                    //Get_Main_PROPS_AZS(_azs, Jsons.dvc, this.props.list_type_dvc);
-                    _list_AZS.push(iterator);
+                        //Get_Main_PROPS_AZS(_azs, Jsons.dvc, this.props.list_type_dvc);
+                        _list_AZS.push(iterator);
+                    }
                 }
+                l = 0;
             }
             this.setState({ list_dvc_azs: M, list_dvc_id: M_ID, list_azs: _list_AZS });
         }

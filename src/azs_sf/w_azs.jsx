@@ -29,6 +29,7 @@ export default class w_azs extends React.Component {
 
         this.state = {
             List_dvc_azs: null,
+            //List_dvc_azs_data: null,
 
             /******** WS******************** */
             Ws: WS,
@@ -42,7 +43,7 @@ export default class w_azs extends React.Component {
     }
     componentDidMount() {
         let N_list_dvc_azs = cope_Mass(this.props.list_dvc_azs)
-        this.setState({ List_dvc_azs: N_list_dvc_azs });//, this.start_ws());
+        this.setState({ List_dvc_azs: N_list_dvc_azs }, this.start_ws());
     }
     componentWillUnmount() {
         this.stop_ws();
@@ -63,12 +64,16 @@ export default class w_azs extends React.Component {
                         try {
 
                             if (evt.data != "") {
+                                //this.setState({List_dvc_azs_data:JSON.parse(evt.data)});
+
                                 this.full_Key_Value(JSON.parse(evt.data));
-
+                                
                                 //this.setState({ data: JSON.parse(evt.data) });// Рабочий
-
                                 //this.add_messages("\n" + evt.data);
-                                console.log('***JSON*********************' + evt.data);
+                                //console.log('***JSON*********************' + evt.data);
+                            }
+                            else{
+                                let r=0;
                             }
                         } catch (error) {
                             console.log('******WS******************' + error);
@@ -111,13 +116,13 @@ export default class w_azs extends React.Component {
         for (const dvc of azs) {
             if (data.id == dvc.dvc_id) {
                 for (const _dvc of azs) {
-                    if (_dvc.ID == dvc.ID && _dvc.key == "id") {
+                    if (_dvc.ID == dvc.ID && _dvc.key == "id" && _dvc.mass_DVC != null) {
                         mass_DVC_AZS = _dvc.mass_DVC;
                         break;
                     }
                 }
             }
-            if (data.id == dvc.dvc_id && dvc.key == data_val.typ && dvc.key == "nozzle") {
+            if (data.id == dvc.dvc_id && dvc.key == data_val.typ && dvc.key == "nozzle" && mass_DVC_AZS != null) {
                 for (const dev_A of mass_DVC_AZS) {
                     if (dev_A.typ == data_val.typ) {
                         if (dev_A.prop != undefined) {
@@ -183,6 +188,9 @@ export default class w_azs extends React.Component {
                 list_book_row={this.props.list_book_row}
                 list_fuels={this.props.list_fuels}
                 List_dvc_azs={this.state.List_dvc_azs}
+
+                //List_dvc_azs_data={this.state.List_dvc_azs_data}
+
 
                 data={this.state.data}
 

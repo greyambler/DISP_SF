@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTable from "react-table";
-import { AZS_List_Error, Get_RSS } from '../../core/core_Function.jsx';
+import { AZS_List_Error, Get_RSS } from '../core/core_Function.jsx';
 
 import moment from 'moment';
 
