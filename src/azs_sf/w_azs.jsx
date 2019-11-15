@@ -16,6 +16,8 @@ function cope_Mass(MASSIV) {
 }
 const _Debuge = false;
 
+let timerId;
+
 export default class w_azs extends React.Component {
     constructor(props) {
         super(props);
@@ -30,6 +32,7 @@ export default class w_azs extends React.Component {
         this.state = {
             List_dvc_azs: null,
             //List_dvc_azs_data: null,
+            list_dvc_azs: null,
 
             /******** WS******************** */
             Ws: WS,
@@ -42,14 +45,34 @@ export default class w_azs extends React.Component {
         }
     }
     componentDidMount() {
+
         let N_list_dvc_azs = cope_Mass(this.props.list_dvc_azs)
-        this.setState({ List_dvc_azs: N_list_dvc_azs }, this.start_ws());
+        this.setState({ list_dvc_azs: this.props.list_dvc_azs, List_dvc_azs: N_list_dvc_azs }, this.start_ws());
     }
+    componentDidUpdate(prevProps) {
+        if (this.props.list_dvc_azs != prevProps.list_dvc_azs) {
+            
+            let N_list_dvc_azs = cope_Mass(this.props.list_dvc_azs);
+            this.setState({ list_dvc_azs: this.props.list_dvc_azs, List_dvc_azs: N_list_dvc_azs }, this.restart());
+        }
+    }
+
+
     componentWillUnmount() {
         this.stop_ws();
     }
 
     /******** WS******************** */
+
+    restart() {
+        if (this.state.connection != null && this.state.IsOpen) {
+            this.state.connection.close(1000, "Hello Web Sockets!");
+            this.setState({ IsOpen: false, connection: null, data: null });
+            /************************ */
+            timerId = setInterval(() => this.start_ws(), 10000);
+            /************************ */
+        }
+    }
 
     start_ws(e) {
         if (this.props.list_dvc_id != null) {
@@ -67,13 +90,13 @@ export default class w_azs extends React.Component {
                                 //this.setState({List_dvc_azs_data:JSON.parse(evt.data)});
 
                                 this.full_Key_Value(JSON.parse(evt.data));
-                                
+
                                 //this.setState({ data: JSON.parse(evt.data) });// Рабочий
                                 //this.add_messages("\n" + evt.data);
                                 //console.log('***JSON*********************' + evt.data);
                             }
-                            else{
-                                let r=0;
+                            else {
+                                let r = 0;
                             }
                         } catch (error) {
                             console.log('******WS******************' + error);
@@ -99,6 +122,7 @@ export default class w_azs extends React.Component {
             this.setState({ connection: null, data: null, IsOpen: false });
         }
     }
+
     add_messages(e) {
         if (e != null) {
             this.setState({
@@ -191,6 +215,9 @@ export default class w_azs extends React.Component {
 
                 //List_dvc_azs_data={this.state.List_dvc_azs_data}
 
+                list_azs={this.props.list_azs}
+                checked={this.props.checked}
+                SetFilter_AZS={this.props.SetFilter_AZS}
 
                 data={this.state.data}
 

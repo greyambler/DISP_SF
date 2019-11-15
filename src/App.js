@@ -29,6 +29,25 @@ import W_Login from './w_Login.jsx'
 import W_LeftPanel from './test/w_LeftPanel.jsx'
 import W_AccordPanel from './test/w_AccordPanel.jsx'
 
+import W_test_Check from './test/test_Check.jsx'
+
+
+
+
+import CheckboxTree from 'react-checkbox-tree';
+
+import 'react-checkbox-tree/lib/react-checkbox-tree.css';
+import 'font-awesome/css/font-awesome.min.css';
+
+const nodes = [{
+  value: 'mars',
+  label: 'Mars',
+  children: [
+    { value: 'phobos', label: 'Phobos' },
+    { value: 'deimos', label: 'Deimos' },
+  ],
+}];
+
 
 const _Debuge_LeftPanel = false;
 const _Debuge_TestMenu = false;
@@ -132,7 +151,12 @@ class Settings extends Component {
         </div>
       );
     }
-    return <center><h2>Настройки</h2></center>;
+    return (
+      <>
+        <center><h2>Настройки</h2></center>
+        <W_test_Check />
+      </>
+    );
   }
 }
 class Help extends Component {
@@ -189,6 +213,10 @@ class AccordPanel extends Component {
 class Nav extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      checked: [],
+      expanded: [],
+    };
   }
   render() {
     return (
@@ -209,6 +237,7 @@ class Nav extends Component {
               </li>
               <li><Link to="/clean">Очистить</Link></li>
               <li><Link to="/help">Помощь</Link></li>
+
               {_Debuge_TestMenu &&
                 <li><Link to="/"><center>Тестовая &gt;&gt;</center></Link>
                   <ul className="submenu">
@@ -224,10 +253,10 @@ class Nav extends Component {
             <tbody>
               <tr>
                 <td id='td_m'>
-                  <S_Link activeClass="active" className="test1" to="test1"
+{/*                   <S_Link activeClass="active" className="test1" to="test1"
                     spy={true} smooth={true} duration={500} offset={-40}>  цены</S_Link>
                 </td><td id='td_m'>
-                  <S_Link activeClass="active" className="test2" to="test2"
+ */}                  <S_Link activeClass="active" className="test2" to="test2"
                     spy={true} smooth={true} duration={500} offset={-40}>  тсо</S_Link>
                 </td><td id='td_m'>
                   <S_Link activeClass="active" className="test3" to="test3"
@@ -269,108 +298,6 @@ class Nav extends Component {
         </ul>
       </nav>
     );
-
-    /* return (
-      <nav>
-        <ul className="topmenu">
-          <li>
-            <div className="header_Inner">
-
-              <table className="header_Right">
-                <tbody>
-                  <tr>
-                    {_Debuge_LeftPanel &&
-                      <td id='td_mb'>
-                        <button className='btn_Reload' type="button" onClick={this.props.handleAnimationChange('overlay')}>
-                          <img className="header_Img" src={'../images/Normal.png'} alt="React"
-                            width="14" height="14" />
-                        </button>
-                      </td>
-                    }
-                    <td id='td_mb'>
-                    
-                      <Link to="/" className="test3">Меню</Link>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table className="header_Text">
-                <tbody>
-                  <tr>
-                    <td id='td_m'>
-                      <S_Link activeClass="active" className="test1" to="test1"
-                        spy={true} smooth={true} duration={500} offset={-40}>
-                        цены</S_Link>
-                    </td><td id='td_m'>
-                      <S_Link activeClass="active" className="test2" to="test2"
-                        spy={true} smooth={true} duration={500} offset={-40}>
-                        тсо</S_Link>
-                    </td><td id='td_m'>
-                      <S_Link activeClass="active" className="test3" to="test3"
-                        spy={true} smooth={true} duration={500} offset={-40}>
-                        трк</S_Link>
-                    </td><td id='td_m'>
-                      <S_Link activeClass="active" className="test4" to="test4"
-                        spy={true} smooth={true} duration={500} offset={-40}>
-                        резервуары</S_Link>
-                    </td>
-                    <td id='td_m'>
-                      <S_Link activeClass="active" className="test5" to="test5"
-                        spy={true} smooth={true} duration={500} offset={-40}>
-                        видео</S_Link>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <table className="header_Left">
-                <tbody>
-                  <tr>
-                    <td id='td_mb'>
-                      <button className='btn_Reload' type="button" onClick={refreshPage}>
-                        <img className="header_Img" src={'../images/Repeat.png'} alt="React"
-                          width="14" height="14" />
-                      </button>
-                    </td>
-                    <td id='td_user'>
-                      {get_Curent_Login()}
-                    </td>
-                    <td id='td_mb'>
-                      <Link to="/clean">
-                        <img className="header_Img" src={'../images/log-out.png'} alt="React"
-                          width="22" height="22" />
-                      </Link>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <ul className="submenu">
-              <li><Link to="/" >Главная</Link></li>
-              <li><Link to="/AZS_SF" >Начальная</Link></li>
-
-              <li><Link to="/"><center>Справочники&gt;&gt;</center></Link>
-                <ul className="submenu">
-                  <li><Link to="/List_Edit_AZS" >Справочник АЗК</Link></li>
-                  <li><Link to="/settings">Настройки</Link></li>
-                </ul>
-              </li>
-              <li><Link to="/clean">Очистить</Link></li>
-              <li><Link to="/help">Помощь</Link></li>
-              {_Debuge_TestMenu &&
-                <li><Link to="/"><center>Тестовая &gt;&gt;</center></Link>
-                  <ul className="submenu">
-                    <li><Link to="/LeftPanel">Левая панель</Link></li>
-                    <li><Link to="/AccordPanel">Аккордная панель</Link></li>
-                  </ul>
-                </li>
-              }
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    ); */
   }
 }
 
@@ -500,8 +427,8 @@ export default class App extends Component {
                   azs_id={ev.match.params[0]}
                   w_Height={this.state.W_Height} w_Width={this.state.W_Width}
                   _List_Objs={this.state._List_Objs}
-                  history={this.props.history}
-                />} />
+                  history={this.props.history} />}
+                />
 
 
                 <Route exact component={NotFound} />

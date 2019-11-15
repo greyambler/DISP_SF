@@ -13,12 +13,12 @@ export default class w_table_azs extends React.Component {
         this.get_Up = this.get_Up.bind(this);
         this.isShow_Row_Type = this.isShow_Row_Type.bind(this);
         this.state = {
-            isPL_View: true,
-            isPUMP_View: true,
-            isTSO_View: true,
+            isPL_View: false,
+            isPUMP_View: false,
+            isTSO_View: false,
         }
     }
-    
+
     setFilter(isView, type) {
         switch (type) {
             case "pl": { this.setState({ isPL_View: isView }); break; }
@@ -76,7 +76,8 @@ export default class w_table_azs extends React.Component {
             case "td":
             case "msc":
             case "tso": {
-                if (el.ID == 0 && el.key == "nm" && el.type == "tso") {
+                if (el.ID == 0 && el.key == "nm" && (el.type == "tso" || el.type == "fr" || el.type == "msc" || el.type == "cash")
+                ) {
                     isView = true;
                 } else {
                     isView = this.state.isTSO_View;
@@ -138,6 +139,9 @@ export default class w_table_azs extends React.Component {
                                                         el={el}
                                                         setFilter={this.setFilter}
                                                         UP={this.get_Up(el)}
+                                                        list_azs={this.props.list_azs}
+                                                        checked={this.props.checked}
+                                                        SetFilter_AZS={this.props.SetFilter_AZS}
                                                     />
                                                 </td>
 

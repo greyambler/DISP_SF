@@ -1,7 +1,7 @@
 import React from 'react';
 
 import W_azs from './w_azs.jsx'
-// import W_List_azs from './w_List_azs.jsx'
+
 import { RSS_AZS, Get_Main_PROPS_AZS } from '../core/core_Function.jsx'
 
 const _Debuge = false;
@@ -9,40 +9,67 @@ const _Debuge = false;
 export default class w_main_azs extends React.Component {
     constructor(props) {
         super(props);
+        this.SetFilter_AZS = this.SetFilter_AZS.bind(this);
         this.state = {
             list_dvc_id: null,
 
             list_azs: null,
             list_dvc_azs: null,
+
+            checked: [],
         }
     }
     componentDidMount() {
         this.get_Id_Devices();
     }
+
+    async SetFilter_AZS(targetNode) {
+        if (this.props._List_AZS != null) {
+            let M_ID = new Array();
+            let M = new Array();
+
+            for (const iterator of this.props._List_AZS) {
+                for (const _id of targetNode) {
+                    if (iterator.id == _id) {
+
+                        let m = await this.tick_azs_id(RSS_AZS, iterator.id);
+                        if (m['M_ID'] != null && m['M_ID'].length > 0) {
+                            M_ID.push(m['M_ID']);
+                            let mas = Get_Main_PROPS_AZS(iterator, m['M'], this.props.list_type_dvc);
+                            M.push(mas);
+                        }
+
+                    }
+                }
+            }
+            this.setState({ list_dvc_azs: M, list_dvc_id: M_ID, checked: targetNode });
+        }
+    }
+
     async get_Id_Devices() {
         if (this.props._List_AZS != null) {
             let M_ID = new Array();
             let M = new Array();
+
+            let _checked_ID = new Array();
 
             let _list_AZS = new Array();
             let l = 0;
             for (const iterator of this.props._List_AZS) {
                 if (l == 0) {
                     let m = await this.tick_azs_id(RSS_AZS, iterator.id);
+
                     if (m['M_ID'] != null && m['M_ID'].length > 0) {
                         M_ID.push(m['M_ID']);
-
-                        //M.push(m['M']);
                         let mas = Get_Main_PROPS_AZS(iterator, m['M'], this.props.list_type_dvc);
                         M.push(mas);
-
-                        //Get_Main_PROPS_AZS(_azs, Jsons.dvc, this.props.list_type_dvc);
                         _list_AZS.push(iterator);
+                        _checked_ID.push(iterator.id);
                     }
                 }
                 l = 0;
             }
-            this.setState({ list_dvc_azs: M, list_dvc_id: M_ID, list_azs: _list_AZS });
+            this.setState({ list_dvc_azs: M, list_dvc_id: M_ID, list_azs: _list_AZS, checked: _checked_ID });
         }
     }
 
@@ -93,27 +120,15 @@ export default class w_main_azs extends React.Component {
                     list_dvc_id={this.state.list_dvc_id}
                     list_fuels={this.props.list_fuels}
 
-                    _List_AZS={this.state.list_azs}
+                    list_azs={this.state.list_azs}
 
                     list_dvc_azs={this.state.list_dvc_azs}
+                    checked={this.state.checked}
+                    SetFilter_AZS={this.SetFilter_AZS}
 
                     history={this.props.history}
                 />
-                /*     
-                  <W_List_azs
-                      list_book_row={this.props.list_book_row}
-                      list_dvc_id={this.state.list_dvc_id}
-                      list_fuels={this.props.list_fuels}
-  
-                      _List_AZS={this.state.list_azs}
-  
-                      list_dvc_azs={this.state.list_dvc_azs}
-  
-                      list_type_dvc={this.props.list_type_dvc}
-  
-                      history={this.props.history}
-  
-                  /> */
+                
             );
         } else {
             return (
