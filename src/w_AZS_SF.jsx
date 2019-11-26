@@ -24,10 +24,11 @@ export default class w_AZS_SF extends React.Component {
             list_type_dvc: null,
             list_fuels: null,
             list_book_row: null,
-            _List_AZS: null,
 
             openModal_Err: false,
             openModal_Ok: false,
+
+            DVC: this.props.DVC,
         }
     }
 
@@ -41,18 +42,13 @@ export default class w_AZS_SF extends React.Component {
     /***Modal_Alert */
 
     componentDidMount() {
-        this.tick();
-        this.tick_AZS();
         demoAsyncCall().then(() => this.setState({ loading: false }));
+        this.tick();
     }
-
-    sort_List(typ, list) {
-        for (const iterator of list) {
-            if (iterator.typ == typ) {
-                return iterator;
-            }
+    componentDidUpdate(prevProps) {
+        if (this.props.DVC !== prevProps.DVC) {
+            this.setState({ DVC: this.props.DVC }, this.Get_list_book_row);
         }
-        return null;
     }
 
     async tick() {
@@ -84,37 +80,8 @@ export default class w_AZS_SF extends React.Component {
                 alert(error);
         }
     }
-    async tick_AZS() {
-        let rss = RSS_AZS;
-        var myRequest = new Request(rss);
-        try {
-            var response = await fetch(myRequest,
-                {
-                    method: 'GET',
-                    headers:
-                    {
-                        'Accept': 'application/json',
-                    },
-                }
-            );
-            const Jsons = await response.json();
-            if (response.ok) {
-                this.setState({ _List_AZS: Jsons.obList });//, this.get_Id_Devices);
-            }
-            else {
-                throw Error(response.statusText);
-            }
-            this.setState({ isExistError: false })
-        }
-        catch (error) {
-            this.setState({ isExistError: true })
-            console.log(error);
-            if (_Debuge_Alert)
-                alert(error);
-        }
-    }
     Get_list_book_row() {
-        let BOOK_All = Get_Main_PROPS(this.state.list_type_dvc);
+        let BOOK_All = Get_Main_PROPS(this.state.list_type_dvc,this.state.DVC);
         this.setState({ list_book_row: BOOK_All });
     }
 
@@ -134,7 +101,10 @@ export default class w_AZS_SF extends React.Component {
         }
         /***** Ждать *****************/
 
-        if (this.state.list_book_row != null && this.state._List_AZS != null) {
+        if (this.state.list_book_row != null
+            &&
+            this.props.list_azs_check != null
+        ) {
             return (
                 <W_main_azs
                     w_Height={this.props.w_Height}
@@ -143,9 +113,11 @@ export default class w_AZS_SF extends React.Component {
 
                     list_book_row={this.state.list_book_row}
                     list_type_dvc={this.state.list_type_dvc}
-                    _List_AZS={this.state._List_AZS}
+
+                    list_azs_check={this.props.list_azs_check}
 
                     list_fuels={this.state.list_fuels}
+
                 />
             );
         } else {

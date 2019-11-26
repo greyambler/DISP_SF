@@ -124,15 +124,16 @@ function set_AZS_name(BOOK_All) {
     });
 }
 
-export function Get_Main_PROPS(List_Main) {
+export function Get_Main_PROPS(List_Main, DVC) {
     let BOOK_All = new Array();
     if (List_Main != null) {
         set_AZS_name(BOOK_All);
         for (const iterator of List_Main) {
-            if (iterator.typ == "pl" ||
-                iterator.typ == "pump" ||
-                iterator.typ == "tso") {
-                SET_MainHead(iterator, BOOK_All);
+            for (const dvc of DVC) {
+                if (dvc.typ == iterator.typ) {
+                    SET_MainHead(iterator, BOOK_All);
+                    break;
+                }
             }
         }
     }
@@ -270,12 +271,26 @@ function GET_AZS_name(BOOK_All, azs, max_Col, mass_DVC) {
         key: "nm", key_value: azs.nm, isDVC: false
     });
 }
-function get_Lists(List_Main, type) {
+function get_Lists(List_Main, type, List_Main_TSO) {
     let list = null;
-    for (const iterator of List_Main) {
-        if (iterator.typ == type) {
-            list = iterator;
-            break;
+ /*   if (type == "tso") {
+        for (const iterator of List_Main) {
+            if (iterator.typ == type) {
+                for (const iterator of List_Main_TSO) {
+                    if (iterator.typ == type) {
+                        list = iterator;
+                        break;
+                    }
+                }
+            }
+        }
+    } else 
+ */    {
+        for (const iterator of List_Main) {
+            if (iterator.typ == type) {
+                list = iterator;
+                break;
+            }
         }
     }
     return list;
@@ -292,36 +307,45 @@ export function Get_Main_PROPS_AZS(azs, mass_DVC, List_Main) {
 
         let list_PL_col = get_Lists(List_Main, "pl");
         let list_PUMP_col = get_Lists(List_Main, "pump");
+
         let list_TSO_col = get_Lists(List_Main, "tso");
 
         for (const iterator of mass_DVC) {
             switch (iterator.typ) {// тк нужно по каждому типу устройств max_Col колонок... иначе рвется разметка по вертикали.
                 case "pl": {
-                    C_PL++;
-                    Get_DVC(BOOK_All, iterator, azs.id, list_PL_col);
+                    if (list_PL_col != null) {
+                        C_PL++;
+                        Get_DVC(BOOK_All, iterator, azs.id, list_PL_col);
+                    }
                     break;
                 }
                 case "pump": {
-                    C_PUMP++
-                    Get_DVC(BOOK_All, iterator, azs.id, list_PUMP_col);
+                    if (list_PUMP_col != null) {
+                        C_PUMP++
+                        Get_DVC(BOOK_All, iterator, azs.id, list_PUMP_col);
+                    }
                     break;
                 }
                 case "tso": {
-                    C_TSO++;
-                    Get_DVC(BOOK_All, iterator, azs.id, list_TSO_col);//, mass_DVC);
+                    if (list_TSO_col != null) {
+                        C_TSO++;
+                        Get_DVC(BOOK_All, iterator, azs.id, list_TSO_col);//, mass_DVC);
+                    }
                     break;
                 }
             }
 
             //Get_MainHead_AZS(BOOK_All, iterator, azs.id, max_Col);
         }
+        if (list_PL_col != null)
+            SET_ZERO_TD_N_N_DVC(BOOK_All, C_PL, max_Col, azs.id, "pl", list_PL_col);
+        if (list_PUMP_col != null)
+            SET_ZERO_TD_N_N_DVC(BOOK_All, C_PUMP, max_Col, azs.id, "pump", list_PUMP_col);
+        if (list_TSO_col != null)
+            SET_ZERO_TD_N_N_DVC(BOOK_All, C_TSO, max_Col, azs.id, "tso", list_TSO_col);
 
-        SET_ZERO_TD_N_N_DVC(BOOK_All, C_PL, max_Col, azs.id, "pl", list_PL_col);
-        SET_ZERO_TD_N_N_DVC(BOOK_All, C_PUMP, max_Col, azs.id, "pump", list_PUMP_col);
-        SET_ZERO_TD_N_N_DVC(BOOK_All, C_TSO, max_Col, azs.id, "tso", list_TSO_col);
 
-
-        if (list_TSO_col.dvctyptree != undefined) { // заполнить данными по dvctyptree
+        if (list_TSO_col != null && list_TSO_col.dvctyptree != undefined) { // заполнить данными по dvctyptree
             Get_DVC_TREE(BOOK_All, C_TSO, max_Col, azs.id, "tso", list_TSO_col.dvctyptree, mass_DVC);
         }
 
@@ -332,7 +356,7 @@ export function Get_Main_PROPS_AZS(azs, mass_DVC, List_Main) {
          }
          */
 
-         
+
     }
     return BOOK_All;
 }

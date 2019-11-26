@@ -26,6 +26,8 @@ export default class w_table_azs extends React.Component {
             case "tso": { this.setState({ isTSO_View: isView }); break; }
         }
     }
+    
+
     get_Up(el) {
         let isView = true;
         switch (el.main_type) {
@@ -94,6 +96,8 @@ export default class w_table_azs extends React.Component {
     render() {
         let w_table_Main = {
             background: "#F0F0F0",
+            //maxWidth: this.props.w_Height,
+            overflow: "hidden",
         }
         let style_th = {
             background: 'white',
@@ -102,8 +106,18 @@ export default class w_table_azs extends React.Component {
             maxWidth: '120px',
             textAlign: 'center',
         }
+        let style_div = {
+             /*overflow: "visible",
+           border: "2px solid red",*/
+            padding: "4px",
+            margin: "4px",
+            float: "left",
+            minHeight:this.props.w_Height,
+        }
+
+
         return (
-            <div>
+            <div style={style_div}>
                 <table style={w_table_Main}>
                     <tbody>
                         {
@@ -139,9 +153,6 @@ export default class w_table_azs extends React.Component {
                                                         el={el}
                                                         setFilter={this.setFilter}
                                                         UP={this.get_Up(el)}
-                                                        list_azs={this.props.list_azs}
-                                                        checked={this.props.checked}
-                                                        SetFilter_AZS={this.props.SetFilter_AZS}
                                                     />
                                                 </td>
 

@@ -7,7 +7,6 @@
     "konva": "^4.0.15",
     "moment": "^2.24.0",
     "react": "^16.10.2",
-    "react-checkbox-tree": "^1.5.1",
     "react-dom": "^16.10.2",
     "react-konva": "^16.10.1-0",
     "react-router-dom": "^5.1.2",

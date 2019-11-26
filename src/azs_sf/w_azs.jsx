@@ -36,7 +36,7 @@ export default class w_azs extends React.Component {
 
             /******** WS******************** */
             Ws: WS,
-            data: null,
+            //data: null,
             connection: null,
             messages: [],
             IsOpen: false,
@@ -45,13 +45,11 @@ export default class w_azs extends React.Component {
         }
     }
     componentDidMount() {
-
         let N_list_dvc_azs = cope_Mass(this.props.list_dvc_azs)
         this.setState({ list_dvc_azs: this.props.list_dvc_azs, List_dvc_azs: N_list_dvc_azs }, this.start_ws());
     }
     componentDidUpdate(prevProps) {
         if (this.props.list_dvc_azs != prevProps.list_dvc_azs) {
-            
             let N_list_dvc_azs = cope_Mass(this.props.list_dvc_azs);
             this.setState({ list_dvc_azs: this.props.list_dvc_azs, List_dvc_azs: N_list_dvc_azs }, this.restart());
         }
@@ -209,17 +207,11 @@ export default class w_azs extends React.Component {
     render() {
         return (
             <W_table_azs
+                w_Height={this.props.w_Height}
+                w_Width={this.props.w_Width}
                 list_book_row={this.props.list_book_row}
                 list_fuels={this.props.list_fuels}
                 List_dvc_azs={this.state.List_dvc_azs}
-
-                //List_dvc_azs_data={this.state.List_dvc_azs_data}
-
-                list_azs={this.props.list_azs}
-                checked={this.props.checked}
-                SetFilter_AZS={this.props.SetFilter_AZS}
-
-                data={this.state.data}
 
                 history={this.props.history}
             />
