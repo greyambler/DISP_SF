@@ -26,7 +26,7 @@ export default class w_table_azs extends React.Component {
             case "tso": { this.setState({ isTSO_View: isView }); break; }
         }
     }
-    
+
 
     get_Up(el) {
         let isView = true;
@@ -97,7 +97,8 @@ export default class w_table_azs extends React.Component {
         let w_table_Main = {
             background: "#F0F0F0",
             //maxWidth: this.props.w_Height,
-            overflow: "hidden",
+            //overflow: "hidden",
+            //marginRight: "-50px",
         }
         let style_th = {
             background: 'white',
@@ -107,12 +108,15 @@ export default class w_table_azs extends React.Component {
             textAlign: 'center',
         }
         let style_div = {
-             /*overflow: "visible",
-           border: "2px solid red",*/
-            padding: "4px",
-            margin: "4px",
-            float: "left",
-            minHeight:this.props.w_Height,
+            minHeight: this.props.w_Height,
+            minWidth: this.props.w_Width ,
+            /*overflow: "visible",
+          border: "2px solid red",
+           padding: "4px",
+           margin: "4px",
+           float: "left",
+           
+            style={style_div}*/
         }
 
 

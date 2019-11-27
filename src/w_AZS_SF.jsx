@@ -81,7 +81,7 @@ export default class w_AZS_SF extends React.Component {
         }
     }
     Get_list_book_row() {
-        let BOOK_All = Get_Main_PROPS(this.state.list_type_dvc,this.state.DVC);
+        let BOOK_All = Get_Main_PROPS(this.state.list_type_dvc, this.state.DVC);
         this.setState({ list_book_row: BOOK_All });
     }
 
@@ -93,9 +93,10 @@ export default class w_AZS_SF extends React.Component {
                 marginTop: '130px',
             }
             return (
-                <div align="center">
+                <div>
                     <center><h1>Запрос данных.</h1></center>
-                    <img src='images/anim_engine.gif' style={stayle_1} />
+                    <center><img src='images/anim_engine.gif' style={stayle_1} /></center>
+                    <hr width={this.props.w_Width - 30} />
                 </div>
             );
         }
@@ -107,7 +108,7 @@ export default class w_AZS_SF extends React.Component {
         ) {
             return (
                 <W_main_azs
-                
+
                     w_Height={this.props.w_Height}
                     w_Width={this.props.w_Width}
                     history={this.props.history}
@@ -122,11 +123,16 @@ export default class w_AZS_SF extends React.Component {
                 />
             );
         } else {
+            let div_Null_Data = {
+                minHeight: this.props.w_Height,
+                minWidth: this.props.w_Width,
+            }
             return (
-                <div>
+                <div style={div_Null_Data}>
                     <center><h4>{this.props.header}</h4></center>
                     <hr /><hr />
                     <h4><center>Нет связи с сервером!!(w_AZS_SF)</center></h4>
+                    <hr width={this.props.w_Width - 30} />
                 </div>
             );
         }

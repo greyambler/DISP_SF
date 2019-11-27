@@ -109,11 +109,16 @@ export default class w_main_azs extends React.Component {
 
             );
         } else {
+            let div_Null_Data = {
+                minHeight: this.props.w_Height,
+                width: this.props.w_Width,
+            }
             return (
-                <div>
+            <div style={div_Null_Data}>
                     <center><h4>{this.props.header}</h4></center>
                     <hr /><hr />
                     <h4><center>Нет данных (w_main_azs)</center></h4>
+                    <hr width={this.props.w_Width -30}/>
                 </div>
             );
         }

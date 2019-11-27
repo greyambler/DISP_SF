@@ -34,6 +34,7 @@ export default class listErr_AZS extends React.Component {
             _MeasList: null,
 
             err: 'Ошибка! Сервер не ответил!',
+
         }
     }
     componentDidMount() {
@@ -45,6 +46,7 @@ export default class listErr_AZS extends React.Component {
         if (this.props.azs_id != prevProps.azs_id) {
             this.setState({ id: this.props.id }, this.tick);
         }
+
     }
     async tick() {///Получение устройств по ID AZS
         if (this.state.id != 0) {
@@ -99,40 +101,56 @@ export default class listErr_AZS extends React.Component {
                 <div align="center">
                     <center><h1>Запрос данных.</h1></center>
                     <img src='images/anim_engine.gif' style={stayle_1} />
+                    <hr width={this.props.w_Width - 40} />
                 </div>
             );
         }
 
         let ArCol = new Array();
-        if (!this.state.isExistError) {
+        if (!this.state.isExistError && this.state._MeasList.length > 0) {
             ArCol = Get_ColumnsForTable(this.state._MeasList[0])
             return (
-                <ReactTable
-                    onFilteredChange={this.Filter_DataExcel}
-                    data={this.state._MeasList}
-                    columns={[
-                        {
-                            Header: "incidents",
-                            columns: ArCol
-                        }
-                    ]}
-                    defaultPageSize={20}
+                <>
+                    <ReactTable
+                        onFilteredChange={this.Filter_DataExcel}
+                        data={this.state._MeasList}
+                        columns={[
+                            {
+                                Header: "incidents",
+                                columns: ArCol
+                            }
+                        ]}
+                        defaultPageSize={20}
 
-                    filterable={true}
-                    show={false}
-                    nextText={'>'}
-                    previousText={'<'}
-                    rowsText={'строк'}
-                    width={150}
+                        filterable={true}
+                        show={false}
+                        nextText={'>'}
+                        previousText={'<'}
+                        rowsText={'строк'}
+                        width={150}
 
-                    pageText={'стр.'}
-                    ofText={'из'}
-                    className="-striped -highlight"
-                >
-                </ReactTable>
+
+                        pageText={'стр.'}
+                        ofText={'из'}
+                        className="-striped -highlight"
+                    >
+                    </ReactTable>
+                    <hr width={this.props.w_Width - 40} />
+                </>
             );
         } else {
-            return (<center><h1>Нет данных.</h1></center>);
+            let div_Null_Data = {
+                minHeight: this.props.w_Height,
+                width: this.props.w_Width,
+            }
+            return (
+                <div style={div_Null_Data}>
+                    <center><h4>{this.props.header}</h4></center>
+                    <hr /><hr />
+                    <h4><center>Нет данных (listErr_AZS)</center></h4>
+                    <hr width={this.props.w_Width - 30} />
+                </div>
+            );
         }
     }
 }

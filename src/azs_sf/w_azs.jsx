@@ -46,12 +46,16 @@ export default class w_azs extends React.Component {
     }
     componentDidMount() {
         let N_list_dvc_azs = cope_Mass(this.props.list_dvc_azs)
-        this.setState({ list_dvc_azs: this.props.list_dvc_azs, List_dvc_azs: N_list_dvc_azs }, this.start_ws());
+        this.setState({ list_dvc_azs: this.props.list_dvc_azs, List_dvc_azs: N_list_dvc_azs }
+            , this.start_ws()
+        );
     }
     componentDidUpdate(prevProps) {
         if (this.props.list_dvc_azs != prevProps.list_dvc_azs) {
             let N_list_dvc_azs = cope_Mass(this.props.list_dvc_azs);
-            this.setState({ list_dvc_azs: this.props.list_dvc_azs, List_dvc_azs: N_list_dvc_azs }, this.restart());
+            this.setState({ list_dvc_azs: this.props.list_dvc_azs, List_dvc_azs: N_list_dvc_azs }
+                , this.restart()
+            );
         }
     }
 

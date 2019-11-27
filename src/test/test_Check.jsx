@@ -45,7 +45,14 @@ export default class test_Check extends React.Component {
 export default class test_Check extends React.Component {
 
   render() {
+    let div_Null_Data = {
+      minHeight: this.props.w_Height,
+      width: this.props.w_Width,
+    }
     return (
-      <h1>Настройка</h1>);
+      <div style={div_Null_Data}>
+        <h1> </h1>
+      </div>
+    );
   }
 }

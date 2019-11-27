@@ -24,18 +24,31 @@ export default class w_Filter_AZS_Props extends React.Component {
         this.Check_OnCheck_AZS = this.Check_OnCheck_AZS.bind(this);
         this.Check_OnCheck_DVC = this.Check_OnCheck_DVC.bind(this);
 
+        this.handleResize = this.handleResize.bind(this);
+
         this.state = {
             seach_Text: "",
             list_azs_check: this.props.list_azs_check,
-            
+
             DVC: this.props.DVC,
 
             show_All: false,
+
+            w_Width: window.innerWidth,
+            w_Height: window.innerHeight,
         };
     }
-    componentDidMount() {
-        this.setState({ list_azs_check: this.props.list_azs_check,DVC: this.props.DVC });
+    handleResize() {
+        this.setState({ w_Width: window.innerWidth, w_Height: window.innerHeight })
     }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.handleResize);
+    }
+    componentDidMount() {
+        this.setState({ list_azs_check: this.props.list_azs_check, DVC: this.props.DVC });
+        window.addEventListener("resize", this.handleResize);
+    }
+
     componentDidUpdate(prevProps) {
         if (this.props.list_azs_check != prevProps.list_azs_check) {
             this.setState({ list_azs_check: this.props.list_azs_check });
@@ -130,7 +143,7 @@ export default class w_Filter_AZS_Props extends React.Component {
             align: "center",
         }
         return (
-            <table id="se_table" height={window.innerHeight - 100} width={window.innerWidth - 100}>
+            <table id="se_table" height={this.state.w_Height - 100} width={this.state.w_Width - 100}>
                 <tbody>
                     <tr>
                         <td style={st_table}>

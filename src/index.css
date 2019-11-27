@@ -3,7 +3,7 @@ html, body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 150%;
+  /*width: 150%;*/
   overflow: visible;
 }
 
@@ -17,10 +17,21 @@ code {
 }
 
 .content {
-  flex: 70 10 auto;
-  min-height: 99%;
-  margin-top: 35px;
-  margin-left: 2px;
+  margin-top: 25px;
+  position: absolute;
+  /* position: absolute;
+ min-height: 100%;
+  min-width: 100%;
+flex: 70 0 auto;
+   
+ 
+  
+  margin-left: -10px;
+  margin-right: -50px;*/
+}
+
+.w_table_Main {
+  background: "#F0F0F0",
 }
 
 /*******HEADER******************/
@@ -130,7 +141,7 @@ nav a {
   float: center;
   position: relative;
   border-left: 1px solid black;
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 .topmenu>li:first-child {
@@ -344,7 +355,6 @@ td {
   border-radius: 16px;
   vertical-align: middle;
   /*align-content: center;*/
-  
   background: #1A2737;
   color: white;
 }
@@ -383,3 +393,4 @@ td {
   width: 1000px;
   background: #1A2737;
 }
+
