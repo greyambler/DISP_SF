@@ -107,6 +107,7 @@ export default class w_AZS_SF extends React.Component {
         ) {
             return (
                 <W_main_azs
+                
                     w_Height={this.props.w_Height}
                     w_Width={this.props.w_Width}
                     history={this.props.history}

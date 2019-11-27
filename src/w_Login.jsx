@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { RSS_LOGIN, saveToken } from './core/core_Function.jsx';
 
+import { Button, Header, Image, Modal, Input, Container } from 'semantic-ui-react';
+
 
 const _Debuge = false;
 
@@ -9,10 +11,14 @@ export default class w_Login extends React.Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.Post_Data = this.Post_Data.bind(this);
+        this.OnKeyPress = this.OnKeyPress.bind(this);
         this.state = {
             login: null,
             password: null,
             Token: null,
+
+            open: true,
+            size: 'mini',
         };
     }
     handleChange(event, nameField) {
@@ -46,7 +52,7 @@ export default class w_Login extends React.Component {
         //this.props.history.push('/');
     }
     async Post_Data(event) {
-        
+
         let J_Post = {
             "username": this.state.login,
             "password": this.state.password
@@ -71,9 +77,9 @@ export default class w_Login extends React.Component {
             );
             const Jsons = await response.json();
             if (response.ok) {
-                saveToken(Jsons.token ,  this.state.login);
-                
-                
+                saveToken(Jsons.token, this.state.login);
+
+
                 return Jsons.token;
             }
             else {
@@ -81,6 +87,7 @@ export default class w_Login extends React.Component {
             }
         }
         catch (error) {
+            saveToken(null);
             console.log(error);
             alert(error);
         }
@@ -88,19 +95,37 @@ export default class w_Login extends React.Component {
     }
 
 
+    show = (size) => () => this.setState({ size, open: true })
+    close = () => this.setState({ open: false }, saveToken(null))
+    OnKeyPress(el) {
+        if (el.charCode == 13) {
+            this.handleSubmit(el);
+        }
+    }
+
     render() {
+
+        const { open, size } = this.state
         return (
             <>
-                <center><h2>W_login</h2></center>
                 <form onsubmit="return false;">
-                    <table>
+
+                    <table width="200px">
                         <tbody>
+                            <tr>
+                                <td colSpan="2">
+                                    <center>
+                                        <img className="header_Img" src={'../images/St_log.png'} alt="React"
+                                            width="180" height="16" />
+                                    </center>
+                                </td>
+                            </tr>
                             <tr>
                                 <td width="70"><label htmlFor="loginField">Логин</label></td>
                                 <td>
                                     <input id="loginField" type="text"
                                         name="login"
-                                        onChange={el => { this.handleChange(el, "login") }}/>
+                                        onChange={el => { this.handleChange(el, "login") }} />
                                 </td>
                             </tr>
                             <tr>
@@ -112,11 +137,59 @@ export default class w_Login extends React.Component {
                                 </td>
                             </tr>
                             <tr>
-                                <td colSpan="2"><input type="submit" onClick={e => {this.handleSubmit(e)}} value="Войти"/></td>
+                                <td colSpan="2"><input type="submit" onClick={e => { this.handleSubmit(e) }} value="Войти" /></td>
                             </tr>
                         </tbody>
                     </table>
+
                 </form>
+
+
+
+                <div>
+
+
+                    <Modal size={size} open={open} onClose={this.close}>
+                        <Modal.Actions>
+                            <center>
+                                <img className="header_Img" src={'../images/St_log.png'} alt="React"
+                                    width="180" height="16" />
+                                <form onsubmit="return false;">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td width="70"><label htmlFor="loginField">Логин</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input id="loginField" type="text"
+                                                        name="login"
+                                                        onChange={el => { this.handleChange(el, "login") }} />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><label htmlFor="passwordField">Пароль</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input id="passwordField" type="password"
+                                                        name="password"
+                                                        onChange={el => { this.handleChange(el, "password") }}
+                                                        onKeyPress={el => { this.OnKeyPress(el) }} />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </center>
+                        </Modal.Actions>
+                        <Modal.Actions>
+                            <Button positive onClick={e => { this.handleSubmit(e) }}>Ввод</Button>
+                            <Button onClick={this.close}>Отмена</Button>
+                        </Modal.Actions>
+                    </Modal>
+                </div>
+
             </>
         );
     }
