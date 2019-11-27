@@ -16,6 +16,8 @@ export default class w_AZS_SF extends React.Component {
         this.View_Modal_Err = this.View_Modal_Err.bind(this);
         this.View_Modal_Ok = this.View_Modal_Ok.bind(this);
 
+        this.handleResize = this.handleResize.bind(this);
+
         this.state = {
             loading: true,
             header: 'Объекты.',
@@ -29,7 +31,17 @@ export default class w_AZS_SF extends React.Component {
             openModal_Ok: false,
 
             DVC: this.props.DVC,
+
+            w_Width: window.innerWidth,
+            w_Height: window.innerHeight,
         }
+    }
+
+    handleResize() {
+        this.setState({ w_Width: window.innerWidth, w_Height: window.innerHeight })
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.handleResize);
     }
 
     /***Modal_Alert */
@@ -44,6 +56,7 @@ export default class w_AZS_SF extends React.Component {
     componentDidMount() {
         demoAsyncCall().then(() => this.setState({ loading: false }));
         this.tick();
+        window.addEventListener("resize", this.handleResize);
     }
     componentDidUpdate(prevProps) {
         if (this.props.DVC !== prevProps.DVC) {
@@ -96,7 +109,7 @@ export default class w_AZS_SF extends React.Component {
                 <div>
                     <center><h1>Запрос данных.</h1></center>
                     <center><img src='images/anim_engine.gif' style={stayle_1} /></center>
-                    <hr width={this.props.w_Width - 30} />
+                    <hr width={this.state.w_Width - 30} />
                 </div>
             );
         }
@@ -109,8 +122,8 @@ export default class w_AZS_SF extends React.Component {
             return (
                 <W_main_azs
 
-                    w_Height={this.props.w_Height}
-                    w_Width={this.props.w_Width}
+                    w_Height={this.state.w_Height}
+                    w_Width={this.state.w_Width}
                     history={this.props.history}
 
                     list_book_row={this.state.list_book_row}
@@ -124,15 +137,15 @@ export default class w_AZS_SF extends React.Component {
             );
         } else {
             let div_Null_Data = {
-                minHeight: this.props.w_Height,
-                minWidth: this.props.w_Width,
+                minHeight: this.state.w_Height - 70,
+                minWidth: this.state.w_Width - 50,
             }
             return (
                 <div style={div_Null_Data}>
                     <center><h4>{this.props.header}</h4></center>
                     <hr /><hr />
                     <h4><center>Нет связи с сервером!!(w_AZS_SF)</center></h4>
-                    <hr width={this.props.w_Width - 30} />
+                    <hr width={this.state.w_Width - 50} />
                 </div>
             );
         }

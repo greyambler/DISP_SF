@@ -673,7 +673,10 @@ export function get_KeyHead(key) {
     return KeyHead;
 }
 
-
+export function compare_azs_iid(a, b) {
+    if (a.iid > b.iid) return 1;
+    if (a.iid < b.iid) return -1;
+}
 
 
 /*

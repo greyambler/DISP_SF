@@ -2,7 +2,7 @@ import React from 'react';
 import ReactTable from "react-table";
 import 'react-table/react-table.css'
 
-import { RSS_AZS_EDIT, set_Curent_Login, createGuid, get_KeyHead } from '../../core/core_Function.jsx'
+import { RSS_AZS_EDIT, set_Curent_Login, createGuid, get_KeyHead, compare_azs_iid } from '../../core/core_Function.jsx'
 import { Button, Header, Image, Modal, Input, Container } from 'semantic-ui-react';
 
 import W_edit_azs from './edit_azs.jsx';
@@ -50,6 +50,7 @@ export default class w_main_edit_azs extends React.Component {
         super(props);
         this.tick = this.tick.bind(this);
         //this.main_POST_PUT = this.main_POST_PUT.bind(this);
+        this.handleResize = this.handleResize.bind(this);
 
         this.state = {
             list_azs: null,
@@ -60,10 +61,20 @@ export default class w_main_edit_azs extends React.Component {
             isCopy: false,
 
             dataProp: new Array(),
+
+            w_Width: window.innerWidth,
+            w_Height: window.innerHeight,
         };
+    }
+    handleResize() {
+        this.setState({ w_Width: window.innerWidth, w_Height: window.innerHeight })
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.handleResize);
     }
     componentDidMount() {
         this.tick();
+        window.addEventListener("resize", this.handleResize);
     }
     async tick() {
         let rss = RSS_AZS_EDIT;
@@ -87,7 +98,7 @@ export default class w_main_edit_azs extends React.Component {
             );
             const Jsons = await response.json();
             if (response.ok) {
-                this.setState({ list_azs: Jsons.object, dataProp: Get_Proper_ForTable(Jsons.object[0], true) });
+                this.setState({ list_azs: Jsons.object.sort(compare_azs_iid), dataProp: Get_Proper_ForTable(Jsons.object[0], true) });
             }
             else {
                 throw Error(response.statusText);
@@ -127,8 +138,8 @@ export default class w_main_edit_azs extends React.Component {
             if (_id) {
                 let _s = await this.delet_AZS(_id);
                 //alert("Команда получила ответ - " + _s);
-                this.setState({ open: false, curentAZS_M: null, curentAZS: null },this.tick);
-                
+                this.setState({ open: false, curentAZS_M: null, curentAZS: null }, this.tick);
+
             }
         }
     }
@@ -280,21 +291,34 @@ export default class w_main_edit_azs extends React.Component {
             ArCol = Get_ColumnsForTable(this.state.list_azs[0]);
 
             let w_table_Main = {
-                //background: "#F0F0F0",
+                verticalAlign: "top",
                 width: "100%",
+                
+                //background: "#F0F0F0",
+                //marginRight: "100px",
+                //height:this.state.w_Height,
+            }
+            let div_Main = {
+                height: this.state.w_Height,
+                width: this.state.w_Width - 50,
+
+                //verticalAlign: "top",
+                //background: "#F0F0F0",
             }
             let w_table_But = {
-                //background: "red",
                 verticalAlign: "top",
+                maxHeight: "10px",
+                //background: "red",
                 //width: "100%",
             }
             let w_td = {
                 width: '50%',
+                verticalAlign: "top",
             }
             let size = 'large';
 
             return (
-                <>
+                <div style={div_Main}>
                     <table style={w_table_Main}>
                         <tbody>
                             <tr >
@@ -328,7 +352,7 @@ export default class w_main_edit_azs extends React.Component {
                                 </td>
                             </tr>
                             <tr>
-                                <td style={w_table_But}>
+                                <td style={w_table_But} height="20px">
                                     <div>
                                         <table>
                                             <tbody>
@@ -392,17 +416,19 @@ export default class w_main_edit_azs extends React.Component {
                                 Data={this.state.curentAZS_M} isCopy={this.state.isCopy} history={this.props.history} />
                         </Container>
                     </Modal>
-
-                    {/* <W_prop_azs _MASS={this.state.curentAZS_M} _AZS={this.state.curentAZS} /> */}
-
-                </>
+                </div>
             );
         } else {
+            let div_Null_Data = {
+                minHeight: this.state.w_Height,
+                minWidth: this.state.w_Width,
+            }
             return (
-                <div>
+                <div style={div_Null_Data}>
                     <center><h4>{this.props.header}</h4></center>
                     <hr /><hr />
-                    <h4><center>Нет данных (w_main_azs)</center></h4>
+                    <h4><center>Нет данных!!!(w_main_azs)</center></h4>
+                    <hr width={this.state.w_Width - 30} />
                 </div>
             );
         }

@@ -96,9 +96,6 @@ export default class w_table_azs extends React.Component {
     render() {
         let w_table_Main = {
             background: "#F0F0F0",
-            //maxWidth: this.props.w_Height,
-            //overflow: "hidden",
-            //marginRight: "-50px",
         }
         let style_th = {
             background: 'white',
@@ -108,15 +105,8 @@ export default class w_table_azs extends React.Component {
             textAlign: 'center',
         }
         let style_div = {
-            minHeight: this.props.w_Height,
-            minWidth: this.props.w_Width ,
-            /*overflow: "visible",
-          border: "2px solid red",
-           padding: "4px",
-           margin: "4px",
-           float: "left",
-           
-            style={style_div}*/
+            minHeight: this.props.w_Height - 70,
+            minWidth: this.props.w_Width - 50,
         }
 
 

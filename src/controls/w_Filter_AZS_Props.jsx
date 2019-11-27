@@ -143,7 +143,7 @@ export default class w_Filter_AZS_Props extends React.Component {
             align: "center",
         }
         return (
-            <table id="se_table" height={this.state.w_Height - 100} width={this.state.w_Width - 100}>
+            <table id="se_table" height={this.state.w_Height - 75} width={this.state.w_Width - 25}>
                 <tbody>
                     <tr>
                         <td style={st_table}>

@@ -13,7 +13,10 @@ import {
 } from 'semantic-ui-react'
 
 
-import { demoAsyncCall, saveToken, RSS_AZS_EDIT, set_Curent_Login, get_Curent_Login, refreshPage, createGuid } from './core/core_Function.jsx'
+import {
+  demoAsyncCall, saveToken, RSS_AZS_EDIT, set_Curent_Login, get_Curent_Login,
+  refreshPage, createGuid, compare_azs_iid
+} from './core/core_Function.jsx'
 
 import history from "./controls/history";
 
@@ -57,7 +60,7 @@ class Filter_Sidebar_Main extends Component {
         animation={this.props.animation} direction={this.props.direction}
         visible={this.props.visible} icon='labeled' vertical width='thin'>
         <W_Set_Filter
-          w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+
           OnColse={this.props.T_close}
           list_azs_check={this.props.list_azs_check}
           DVC={this.props.DVC}
@@ -70,16 +73,12 @@ class Filter_Sidebar_Main extends Component {
 class SettingsFilter extends Component {
   render() {
     return (
-      <W_Set_Filter w_Height={this.props.w_Height}
-        w_Width={this.props.w_Width} history={this.props.history}
+      <W_Set_Filter history={this.props.history}
         list_azs_check={this.props.list_azs_check}
       />
     );
   }
 }
-
-
-
 function get_list_azs_check_NEED(list_azs_check) {
   let r = new Array();
   if (list_azs_check != null) {
@@ -103,10 +102,9 @@ function get_DVC_NEED(DVC_check) {
   return r;
 }
 
-
 class Main extends Component {
   render() {
-    return (<W_AZS_SF w_Height={this.props.w_Height} w_Width={this.props.w_Width}
+    return (<W_AZS_SF
       history={this.props.history}
       list_azs_check={this.props.list_azs_check}
       DVC={this.props.DVC}
@@ -116,8 +114,6 @@ class Main extends Component {
 class AZS_SF extends Component {
   render() {
     return (<W_AZS_SF
-      w_Height={this.props.w_Height}
-      w_Width={this.props.w_Width}
       history={this.props.history}
       list_azs_check={this.props.list_azs_check}
       DVC={this.props.DVC}
@@ -129,15 +125,12 @@ class Edit_List_AZS extends Component {
   render() {
 
     return (<W_main_edit_azs
-      w_Height={this.props.w_Height}
-      w_Width={this.props.w_Width}
       history={this.props.history} />);
   }
 }
 class AZS_listerror extends Component {
   render() {
     return (<W_ListErr_AZS
-      w_Height={this.props.w_Height} w_Width={this.props.w_Width}
       _List_Objs={this.props._List_Objs}
       azs_id={this.props.azs_id}
     />);
@@ -153,61 +146,37 @@ class CleanTOKEN extends Component {
   }
 }
 class Settings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-    }
-  }
-  componentDidMount() {
-    demoAsyncCall().then(() => this.setState({ loading: false }));
-  }
   render() {
-    /***** Ждать *****************/
-    const { loading } = this.state;
-    if (loading) {
-      let stayle_1 = {
-        marginTop: '130px',
-      }
-      return (
-        <div align="center">
-          <center><h1>Настройки.</h1></center>
-          <img src='images/anim_engine.gif' style={stayle_1} />
-          <hr width={this.props.w_Width - 30} />
-        </div>
-      );
-    }
-    return (
-      <>
-        <center><h2>Настройки</h2></center>
-        <center><W_test_Check
-          w_Height={this.props.w_Height}
-          w_Width={this.props.w_Width} /></center>
-        <hr width={this.props.w_Width - 30} />
-      </>
-    );
+    return (<W_test_Check />);
   }
 }
-
-
-
 
 class Help extends Component {
   constructor(props) {
     super(props);
+    this.handleResize = this.handleResize.bind(this);
     this.state = {
       loading: true,
-      w_Width:this.props.w_Width,
+
+      w_Width: window.innerWidth,
+      w_Height: window.innerHeight,
     }
+  }
+  handleResize() {
+    this.setState({ w_Width: window.innerWidth, w_Height: window.innerHeight })
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
   }
   componentDidMount() {
     demoAsyncCall().then(() => this.setState({ loading: false }));
+    window.addEventListener("resize", this.handleResize);
   }
   componentDidUpdate(prevProps) {
     if (this.props.w_Width !== prevProps.w_Width) {
-        this.setState({ w_Width: this.props.w_Width });
+      this.setState({ w_Width: this.props.w_Width });
     }
-}
+  }
 
   render() {
     /***** Ждать *****************/
@@ -220,18 +189,18 @@ class Help extends Component {
         <div align="center">
           <center><h1>Помощь.</h1></center>
           <img src='images/anim_engine.gif' style={stayle_1} />
-          <hr width={this.props.w_Width - 30} />
+          <hr width={this.state.w_Width - 50} />
         </div>
       );
     }
     let div_Null_Data = {
-      minHeight: this.props.w_Height,
-      minWidth: this.props.w_Width,
+      minHeight: this.state.w_Height - 70,
+      minWidth: this.state.w_Width - 50,
     }
     return (
       <div style={div_Null_Data}>
         <center><h2>Помощь</h2></center>
-        <hr width={this.props.w_Width - 30} />
+        <hr width={this.state.w_Width - 50} />
       </div>
     );
   }
@@ -245,16 +214,12 @@ class LeftPanel extends Component {
   render() {
 
     return (<W_LeftPanel
-      w_Height={this.props.w_Height}
-      w_Width={this.props.w_Width}
       history={this.props.history} />);
   }
 }
 class AccordPanel extends Component {
   render() {
     return (<W_AccordPanel
-      w_Height={this.props.w_Height}
-      w_Width={this.props.w_Width}
       history={this.props.history} />);
   }
 }
@@ -317,8 +282,8 @@ class Nav extends Component {
  */}
                 </ul>
               </li>
-              <li><Link to="/clean" >Очистить</Link></li>
-              <li><Link to="/help" >Помощь</Link></li>
+              {/*               <li><Link to="/clean" >Очистить</Link></li>
+ */}              <li><Link to="/help" >Помощь</Link></li>
             </ul>
           </li>
 
@@ -382,10 +347,8 @@ export default class App extends Component {
     super(props);
     this.get_ListAZS_Check = this.get_ListAZS_Check.bind(this);
     this.T_close = this.T_close.bind(this);
-    //this.handleResize = this.handleResize.bind(this);
+
     this.state = {
-      w_Width: window.innerWidth,
-      w_Height: window.innerHeight,
 
       list_azs_check: null,
       DVC: Init_DVC(),
@@ -396,24 +359,28 @@ export default class App extends Component {
     }
   }
 
-
   handleAnimationChange = (animation) => () => this.setState((prevState) => ({
     animation, visible: !prevState.visible,
     list_azs_check: prevState.list_azs_check
   }))
   T_close(list_azs_check) { this.setState({ visible: false }) };
 
+  /*  
+  this.handleResize = this.handleResize.bind(this);
+  
   handleResize() {
     this.setState({ w_Width: window.innerWidth, w_Height: window.innerHeight })
   }
-/*   componentWillUnmount() {
+  componentWillUnmount() {
     window.removeEventListener("resize", this.handleResize);
   }
- */  
+  componentDidMount() {
+    window.addEventListener("resize", this.handleResize);
+  }  
+  */
 
- componentDidMount() {
+  componentDidMount() {
     this.tick();
-    //window.addEventListener("resize", this.handleResize);
   }
   async tick() {
     let rss = RSS_AZS_EDIT;
@@ -450,7 +417,6 @@ export default class App extends Component {
       console.log(error);
     }
   }
-
   get_ListAZS_Check(data) {
     let List_AZS = new Array();
     if (data != null) {
@@ -464,18 +430,14 @@ export default class App extends Component {
         });
       }
     }
-    //let tt = List_AZS.sort(this.compare_azs_iid);
 
-    return List_AZS.sort(this.compare_azs_iid);
-  }
-  compare_azs_iid(a, b) {
-    if (a.iid > b.iid) return 1;
-    if (a.iid < b.iid) return -1;
-  }
+    //let tt = List_AZS.sort(compare_azs_iid);
 
+    return List_AZS.sort(compare_azs_iid);
+  }
   render() {
-    const { animation, dimmed, direction, visible, w_Height, w_Width } = this.state
-    const vertical = direction === 'bottom' || direction === 'top'
+    const { animation, dimmed, direction, visible } = this.state
+    //const vertical = direction === 'bottom' || direction === 'top'
     let token = localStorage.tokenData;
     if (token != null) {
       return (
@@ -493,55 +455,39 @@ export default class App extends Component {
                 history={history} T_close={this.T_close}
                 list_azs_check={this.state.list_azs_check}
                 DVC={this.state.DVC}
-                w_Height={this.state.w_Height}
+
               />
 
               <Sidebar.Pusher dimmed={dimmed && visible}>
                 <Segment basic>
                   <Switch>
-                    <Route exact path="/" render={({ history }) => <Main w_Height={this.state.w_Height} w_Width={this.state.w_Width}
+                    <Route exact path="/" render={({ history }) => <Main
                       history={history}
                       list_azs_check={get_list_azs_check_NEED(this.state.list_azs_check)}
-                      DVC={get_DVC_NEED(this.state.DVC)}
-                    />} />
+                      DVC={get_DVC_NEED(this.state.DVC)} />} />
 
 
-                    <Route exact path="/AZS_SF" render={({ history }) => <AZS_SF w_Height={this.state.w_Height} w_Width={this.state.w_Width}
-                      history={history}
-                      list_azs_check={get_list_azs_check_NEED(this.state.list_azs_check)}
-                      DVC={get_DVC_NEED(this.state.DVC)}
-                    />} />
-
-                    {/* <Route exact path="/settings" component={Settings} /> */}
-
-                    <Route exact path="/settings" render={({ history }) => <Settings w_Height={this.state.w_Height} w_Width={this.state.w_Width}
-                      history={history} />} />
+                    <Route exact path="/AZS_SF" render={({ history }) => <AZS_SF
+                      history={history} list_azs_check={get_list_azs_check_NEED(this.state.list_azs_check)}
+                      DVC={get_DVC_NEED(this.state.DVC)} />} />
 
 
-                    <Route exact path="/clean" component={CleanTOKEN} />
-                    {/*                     <Route exact path="/help" component={Help} />
-
- */}                    <Route exact path="/help" render={({ history }) => <Help w_Height={this.state.w_Height} w_Width={this.state.w_Width}
-                      history={history} />} />
+                    <Route exact path="/settings" render={({ history }) => <Settings history={history} />} />
 
 
-                    <Route exact path="/LeftPanel" render={({ history }) => <LeftPanel w_Height={this.state.w_Height} w_Width={this.state.w_Width}
-                      history={history} />} />
-
-                    <Route exact path="/AccordPanel" render={({ history }) => <AccordPanel w_Height={this.state.w_Height} w_Width={this.state.w_Width}
-                      history={history} />} />
+                    <Route exact path="/help" render={({ history }) => <Help history={history} />} />
 
 
-                    <Route exact path="/List_Edit_AZS" render={({ history }) => <Edit_List_AZS w_Height={this.state.w_Height} w_Width={this.state.w_Width}
-                      history={history} />} />
+                    <Route exact path="/LeftPanel" render={({ history }) => <LeftPanel history={history} />} />
+
+                    <Route exact path="/AccordPanel" render={({ history }) => <AccordPanel history={history} />} />
+
+
+                    <Route exact path="/List_Edit_AZS" render={({ history }) => <Edit_List_AZS history={history} />} />
 
 
                     <Route exact path="/azs_listerror&*" render={(ev) => <AZS_listerror
-                      azs_id={ev.match.params[0]}
-                      w_Height={this.state.w_Height} w_Width={this.state.w_Width}
-                      _List_Objs={this.state._List_Objs}
-                      history={this.props.history} />}
-                    />
+                      history={this.props.history} azs_id={ev.match.params[0]} _List_Objs={this.state._List_Objs} />} />
 
 
                     <Route exact component={NotFound} />

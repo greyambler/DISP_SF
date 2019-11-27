@@ -101,9 +101,7 @@ export default class w_main_azs extends React.Component {
                     list_book_row={this.props.list_book_row}
                     list_dvc_id={this.state.list_dvc_id}
                     list_fuels={this.props.list_fuels}
-
                     list_dvc_azs={this.state.list_dvc_azs}
-
                     history={this.props.history}
                 />
 
@@ -111,14 +109,14 @@ export default class w_main_azs extends React.Component {
         } else {
             let div_Null_Data = {
                 minHeight: this.props.w_Height,
-                width: this.props.w_Width,
+                minWidth: this.props.w_Width,
             }
             return (
-            <div style={div_Null_Data}>
+                <div style={div_Null_Data}>
                     <center><h4>{this.props.header}</h4></center>
                     <hr /><hr />
                     <h4><center>Нет данных (w_main_azs)</center></h4>
-                    <hr width={this.props.w_Width -30}/>
+                    <hr width={this.props.w_Width - 30} />
                 </div>
             );
         }
