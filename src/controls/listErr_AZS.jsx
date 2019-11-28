@@ -34,13 +34,21 @@ export default class listErr_AZS extends React.Component {
             _MeasList: null,
 
             err: 'Ошибка! Сервер не ответил!',
-
+            w_Width: window.innerWidth,
+            w_Height: window.innerHeight,
         }
+    }
+    handleResize() {
+        this.setState({ w_Width: window.innerWidth, w_Height: window.innerHeight })
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.handleResize);
     }
     componentDidMount() {
         this.setState({ id: this.props.azs_id }, this.tick);
 
         demoAsyncCall().then(() => this.setState({ loading: false }));
+        window.addEventListener("resize", this.handleResize);
     }
     componentDidUpdate(prevProps) {
         if (this.props.azs_id != prevProps.azs_id) {
@@ -107,10 +115,14 @@ export default class listErr_AZS extends React.Component {
         }
 
         let ArCol = new Array();
+        let div_Null_Data = {
+            minHeight: this.state.w_Height,
+            width: this.state.w_Width,
+        }
         if (!this.state.isExistError && this.state._MeasList.length > 0) {
             ArCol = Get_ColumnsForTable(this.state._MeasList[0])
             return (
-                <>
+                <div style={div_Null_Data}>
                     <ReactTable
                         onFilteredChange={this.Filter_DataExcel}
                         data={this.state._MeasList}
@@ -135,20 +147,17 @@ export default class listErr_AZS extends React.Component {
                         className="-striped -highlight"
                     >
                     </ReactTable>
-                    <hr width={this.props.w_Width - 40} />
-                </>
+                    <hr width={this.state.w_Width - 40} />
+                </div>
             );
         } else {
-            let div_Null_Data = {
-                minHeight: this.props.w_Height,
-                width: this.props.w_Width,
-            }
+
             return (
                 <div style={div_Null_Data}>
                     <center><h4>{this.props.header}</h4></center>
                     <hr /><hr />
                     <h4><center>Нет данных (listErr_AZS)</center></h4>
-                    <hr width={this.props.w_Width - 30} />
+                    <hr width={this.state.w_Width - 30} />
                 </div>
             );
         }
