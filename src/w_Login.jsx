@@ -107,7 +107,7 @@ export default class w_Login extends React.Component {
 
         const { open, size } = this.state
         return (
-            <>
+            <center>
                 <form onsubmit="return false;">
 
                     <table width="200px">
@@ -190,7 +190,7 @@ export default class w_Login extends React.Component {
                     </Modal>
                 </div>
 
-            </>
+            </center>
         );
     }
 }

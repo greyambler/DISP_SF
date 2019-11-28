@@ -145,6 +145,7 @@ class CleanTOKEN extends Component {
     return <center><h2>Очистить</h2></center>;
   }
 }
+
 class Settings extends Component {
   render() {
     return (<W_test_Check />);
@@ -485,6 +486,7 @@ export default class App extends Component {
 
                     <Route exact path="/List_Edit_AZS" render={({ history }) => <Edit_List_AZS history={history} />} />
 
+                    <Route exact path="/clean" component={CleanTOKEN} />
 
                     <Route exact path="/azs_listerror&*" render={(ev) => <AZS_listerror
                       history={this.props.history} azs_id={ev.match.params[0]} _List_Objs={this.state._List_Objs} />} />

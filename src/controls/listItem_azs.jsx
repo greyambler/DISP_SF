@@ -43,7 +43,7 @@ export default class listItem_azs extends React.Component {
                         </td>
 
                         <td width="30px" align="center">
-                            {this.props.show_All &&
+                            {this.props.el.check && this.props.show_All &&
                                 <img className="header_Img"
                                     src={"../images/alert-triangle.png"} alt="React"
                                     width="20" height="20"

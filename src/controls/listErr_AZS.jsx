@@ -26,6 +26,7 @@ function demoAsyncCall() {
 export default class listErr_AZS extends React.Component {
     constructor(props) {
         super(props);
+        this.handleResize = this.handleResize.bind(this);
         this.state = {
             loading: true,
 
