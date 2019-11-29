@@ -271,20 +271,23 @@ class Nav extends Component {
           <li>
             <Link to="/"> Меню</Link>
             <ul className="submenu">
-              <li><Link to="/" >Главная</Link></li>
+              {/*<li><Link to="/" >Главная</Link></li>*/}
               <li><Link to="/AZS_SF" >Начальная</Link></li>
 
-              <li><Link to="/" ><center>Справочники&gt;&gt;</center></Link>
+
+              <li><Link to="/List_Edit_AZS">Справочник АЗК</Link></li>
+              <li><Link to="/settings" >Настройки</Link></li>
+
+
+              {/*               <li><Link to="/" ><center>Справочники&gt;&gt;</center></Link>
                 <ul className="submenu">
                   <li><Link to="/List_Edit_AZS">Справочник АЗК</Link></li>
                   <li><Link to="/settings" >Настройки</Link></li>
-
-                  {/*                   <li><Link to="/settingsFilter" >Настройки фильтра</Link></li>
- */}
+                  <li><Link to="/settingsFilter" >Настройки фильтра</Link></li>
                 </ul>
               </li>
-              {/*               <li><Link to="/clean" >Очистить</Link></li>
- */}              <li><Link to="/help" >Помощь</Link></li>
+ */}              {/*<li><Link to="/clean" >Очистить</Link></li> */}
+              <li><Link to="/help" >Помощь</Link></li>
             </ul>
           </li>
 

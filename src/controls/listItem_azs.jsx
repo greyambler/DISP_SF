@@ -4,16 +4,16 @@ function get_Img(is_Check) {
     return (is_Check) ? "../images/Switch_on_yellow.png" : "../images/Switch_on_red.png";
 }
 function get_Img_Check(is_Check) {
-    return (is_Check) ? "../images/check.png" : null;//"../images/no_check.png";
+    return (is_Check) ? "../images/check.png" : "../images/no_check.png";
 }
 
 export default class listItem_azs extends React.Component {
     constructor(props) {
         super(props);
         this.On_Click = this.On_Click.bind(this);
-        
+
     }
-    
+
     On_Click() {
         this.props.Check_OnCheck_AZS(this.props.el)
     }
@@ -34,7 +34,7 @@ export default class listItem_azs extends React.Component {
                     <tr>
 
                         <td width="25px" align="center">
-                            {this.props.el.check &&
+                            {//this.props.el.check &&
                                 <img className="header_Img"
                                     src={get_Img_Check(this.props.el.check)} alt="React"
                                     width="20" height="20"

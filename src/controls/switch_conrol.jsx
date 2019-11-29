@@ -6,6 +6,7 @@ function get_Img(is_Show) {
 function get_Img_Check(is_Check) {
     return (is_Check) ? "../images/check.png" : "../images/no_check.png";
 }
+
 export default class switch_conrol extends React.Component {
     constructor(props) {
         super(props);
