@@ -58,12 +58,10 @@ export default class w_azs extends React.Component {
             );
         }
     }
-
-
     componentWillUnmount() {
         this.stop_ws();
     }
-
+    
     /******** WS******************** */
 
     restart() {
@@ -75,7 +73,6 @@ export default class w_azs extends React.Component {
             /************************ */
         }
     }
-
     start_ws(e) {
         if (this.props.list_dvc_id != null) {
             if (this.state.connection == null) {
@@ -124,7 +121,6 @@ export default class w_azs extends React.Component {
             this.setState({ connection: null, data: null, IsOpen: false });
         }
     }
-
     add_messages(e) {
         if (e != null) {
             this.setState({

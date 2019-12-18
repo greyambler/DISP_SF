@@ -4,7 +4,7 @@ function get_Img(is_Check) {
     return (is_Check) ? "../images/Switch_on_yellow.png" : "../images/Switch_on_red.png";
 }
 function get_Img_Check(is_Check) {
-    return (is_Check) ? "../images/check.png" : "../images/no_check.png";
+    return (is_Check) ? "../images/check.png" : "../images/TRK/NoConnection.png";
 }
 
 export default class listItem_azs extends React.Component {

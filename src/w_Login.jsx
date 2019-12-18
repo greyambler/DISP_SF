@@ -106,10 +106,11 @@ export default class w_Login extends React.Component {
     render() {
 
         const { open, size } = this.state
+        
         return (
             <center>
-                <form onsubmit="return false;">
 
+                <form onsubmit="return false;">
                     <table width="200px">
                         <tbody>
                             <tr>
@@ -141,14 +142,9 @@ export default class w_Login extends React.Component {
                             </tr>
                         </tbody>
                     </table>
-
                 </form>
 
-
-
                 <div>
-
-
                     <Modal size={size} open={open} onClose={this.close}>
                         <Modal.Actions>
                             <center>

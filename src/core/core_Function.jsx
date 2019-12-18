@@ -2,16 +2,14 @@ import { isArray } from "util";
 
 const IP_Server = "http://172.23.16.18:8080";
 
+
 export const RSS_List_Main = IP_Server + "/dprest-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dic"
 export const RSS_AZS = IP_Server + "/dprest-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.azk";
 export const RSS_LOGIN = IP_Server + "/dprest-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dic.edit/user/login";
 export const RSS_AZS_EDIT = IP_Server + "/dprest-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.dic.edit/azk";
 
 export const WS = "ws://172.23.16.18:8080/dpsock-1.0-SNAPSHOT/alwsc";
-
 export const POST = IP_Server + "/dprest-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpfacade.com";
-
-
 export const AZS_List_Error = IP_Server + "/dpmark-1.0-SNAPSHOT/webresources/ru.expertek.dp.dpinside.mark";
 
 
@@ -193,22 +191,7 @@ export function GetDateYMD_moment(_moment) {
         return GetDateNow();
     }
 }
-/*
-export function GetDateDMY_moment(_moment) {
-  if (_moment != null) {
-     var day = _moment.date();
-     var month = _moment.month();
-     var year = _moment.year();
-     if (month < 10) month = "0" + month;
-     if (day < 10) day = "0" + day;
-     var today = day + "/" + month + "/" + year;
-     return today;
-  }
-  else {
-     return GetDateNow();
-  }
-}
-*/
+
 export function GetDateNow() {
     var date = new Date();
     var day = date.getDate();
@@ -273,24 +256,10 @@ function GET_AZS_name(BOOK_All, azs, max_Col, mass_DVC) {
 }
 function get_Lists(List_Main, type, List_Main_TSO) {
     let list = null;
- /*   if (type == "tso") {
-        for (const iterator of List_Main) {
-            if (iterator.typ == type) {
-                for (const iterator of List_Main_TSO) {
-                    if (iterator.typ == type) {
-                        list = iterator;
-                        break;
-                    }
-                }
-            }
-        }
-    } else 
- */    {
-        for (const iterator of List_Main) {
-            if (iterator.typ == type) {
-                list = iterator;
-                break;
-            }
+    for (const iterator of List_Main) {
+        if (iterator.typ == type) {
+            list = iterator;
+            break;
         }
     }
     return list;
@@ -348,15 +317,6 @@ export function Get_Main_PROPS_AZS(azs, mass_DVC, List_Main) {
         if (list_TSO_col != null && list_TSO_col.dvctyptree != undefined) { // заполнить данными по dvctyptree
             Get_DVC_TREE(BOOK_All, C_TSO, max_Col, azs.id, "tso", list_TSO_col.dvctyptree, mass_DVC);
         }
-
-
-
-        /* if (list_PUMP_col.dvctyptree != undefined) { // заполнить данными по dvctyptree
-             Get_DVC_TREE(BOOK_All, C_PUMP, max_Col, azs.id, "pump", list_PUMP_col.dvctyptree, mass_DVC);
-         }
-         */
-
-
     }
     return BOOK_All;
 }
@@ -486,11 +446,6 @@ function Get_DVC_CNTYP_TREE(BOOK_All, isDVC, azs_ID, list_Main, item_DVC_id) {
                 isMain: false, main_type: type, type: "cntyp",
                 isDVC: isDVC, OP: OP
             });
-
-            /*             if (type == 'msc' && _item.typ == "PRINTER_PAPER_END_SENSOR") {
-                            let r = 0;
-                        }
-             */
         }
     }
 }
@@ -544,9 +499,6 @@ export function createGuid() {
 export function saveToken(token, login) {
     if (token == null) {
         localStorage.removeItem('tokenData');
-        //localStorage.clear()
-        //let wr = localStorage.tokenData;
-        //let rrrr = 0;
     } else {
         let tokenData = login + "!^!" + token;
         localStorage.setItem('tokenData', tokenData);
@@ -634,11 +586,11 @@ export function get_KeyHead(key) {
             break;
         }
         case "iid": {
-            KeyHead = "индекс";
+            KeyHead = "индекс *";
             break;
         }
         case "dispname": {
-            KeyHead = "Название объекта";
+            KeyHead = "Название объекта *";
             break;
         }
         case "th_code": {
@@ -650,7 +602,7 @@ export function get_KeyHead(key) {
             break;
         }
         case "shortname": {
-            KeyHead = "Название";
+            KeyHead = "Название *";
             break;
         }
         case "region_code": {
@@ -677,23 +629,3 @@ export function compare_azs_iid(a, b) {
     if (a.iid > b.iid) return 1;
     if (a.iid < b.iid) return -1;
 }
-
-
-/*
-
-{(el.key != "nm") &&
-                                                                        (el.ID == 0) ? (
-                                                                            <Single_Coll el={el_azs} UP={this.get_Up(el)}
-                                                                                _Fuels={this.props._Fuels}
-                                                                                _Debuge_Show_Code={this.props._Debuge_Show_Code}
-                                                                                _Debuge_Show_Crit={this.props._Debuge_Show_Crit}
-                                                                            />
-                                                                        ) : (
-                                                                            <center>
-                                                                                <W_pl_Head el={el_azs} _Fuels={this.props._Fuels}
-                                                                                    STATE_PL={this.state.STATE_PL} />
-                                                                            </center>
-                                                                        )
-                                                                    }
-
-*/

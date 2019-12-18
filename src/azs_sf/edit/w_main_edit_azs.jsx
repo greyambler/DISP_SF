@@ -52,11 +52,17 @@ export default class w_main_edit_azs extends React.Component {
         //this.main_POST_PUT = this.main_POST_PUT.bind(this);
         this.handleResize = this.handleResize.bind(this);
 
+
+
         this.state = {
             list_azs: null,
 
             curentAZS: null,
+
             open: false,
+            open1: false,
+
+            msg_text: "",
 
             isCopy: false,
 
@@ -64,6 +70,7 @@ export default class w_main_edit_azs extends React.Component {
 
             w_Width: window.innerWidth,
             w_Height: window.innerHeight,
+
         };
     }
     handleResize() {
@@ -279,44 +286,40 @@ export default class w_main_edit_azs extends React.Component {
         }
     }
     close_Modal = () => this.setState({ open: false, curentAZS_M: null, curentAZS: null }, this.componentDidMount);
+
+    close_Modal1 = () => this.setState({ open1: false });
+
+    open_Modal1 = (msg) => this.setState({ open1: true, msg_text: msg });
+
     render() {
 
         if (this.state.list_azs != null) {
             let ArCol = new Array();
 
             let ArCol_Prop = new Array();
-            ArCol_Prop[0] = { Header: "Название параметра", accessor: "name" };//'Название параметра'
-            ArCol_Prop[1] = { Header: "Значение параметра", accessor: "value" };//'Значение параметра'
+            ArCol_Prop[0] = { Header: "Название параметра", accessor: "name", _width: "10%" };//'Название параметра'
+            ArCol_Prop[1] = { Header: "Значение параметра", accessor: "value", _width: "90%" };//'Значение параметра'
             //let dataProp = Get_Proper_ForTable(this.state.list_azs[0], true);
             ArCol = Get_ColumnsForTable(this.state.list_azs[0]);
 
             let w_table_Main = {
                 verticalAlign: "top",
                 width: "100%",
-                
-                //background: "#F0F0F0",
-                //marginRight: "100px",
-                //height:this.state.w_Height,
             }
             let div_Main = {
                 height: this.state.w_Height,
                 width: this.state.w_Width - 50,
-
-                //verticalAlign: "top",
-                //background: "#F0F0F0",
             }
             let w_table_But = {
                 verticalAlign: "top",
                 maxHeight: "10px",
-                //background: "red",
-                //width: "100%",
             }
             let w_td = {
                 width: '50%',
                 verticalAlign: "top",
             }
             let size = 'large';
-
+            let size1 = 'mini';
             return (
                 <div style={div_Main}>
                     <table style={w_table_Main}>
@@ -328,7 +331,8 @@ export default class w_main_edit_azs extends React.Component {
                                         columns={[
                                             {
                                                 Header: "Список АЗК",
-                                                columns: ArCol
+                                                columns: ArCol,
+
                                             }
                                         ]}
                                         getTrProps={(state, rowInfo, column, instance) => {
@@ -387,7 +391,7 @@ export default class w_main_edit_azs extends React.Component {
                                         columns={[
                                             {
                                                 Header: "АЗК",
-                                                columns: ArCol_Prop
+                                                columns: ArCol_Prop,
                                             }
                                         ]}
 
@@ -398,7 +402,7 @@ export default class w_main_edit_azs extends React.Component {
                                         nextText={'>'}
                                         previousText={'<'}
                                         rowsText={'строк'}
-                                        width={150}
+                                        //width={150}
                                         pageText={'стр.'}
                                         ofText={'из'}
                                         className="-striped -highlight"
@@ -408,13 +412,25 @@ export default class w_main_edit_azs extends React.Component {
                         </tbody>
                     </table>
 
-                    <Modal id="ModalTable" size={size}
-                        open={this.state.open} onClose={this.close_Modal} closeIcon>
-                        <Modal.Header>АЗК</Modal.Header>
+                    <Modal id="ModalTable" size={size} open={this.state.open} onClose={this.close_Modal} closeIcon>
+                        <center><Modal.Header>АЗК</Modal.Header></center>
                         <Container>
                             <W_edit_azs onClose={this.close_Modal} main_Creat={this.main_Creat}
-                                Data={this.state.curentAZS_M} isCopy={this.state.isCopy} history={this.props.history} />
+                                Data={this.state.curentAZS_M} isCopy={this.state.isCopy} history={this.props.history}
+                                open_Modal1={this.open_Modal1}
+                            />
                         </Container>
+                    </Modal>
+
+                    <Modal id="ModalTable1" size={size1} open={this.state.open1} onClose={this.close_Modal1}>
+                        <center><Modal.Header ><input id="_circl_min" type="image" src={'../images/TRK/NoConnection.png'} /></Modal.Header></center>
+                        <Modal.Actions>
+                            <center>{this.state.msg_text}</center>
+                        </Modal.Actions>
+                        <Modal.Actions>
+
+                            <center><input id="_button_mes" type="image" src={'../images/Rect_Red.png'} onClick={this.close_Modal1} /></center>
+                        </Modal.Actions>
                     </Modal>
                 </div>
             );

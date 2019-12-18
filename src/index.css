@@ -303,6 +303,20 @@ td {
   height: 27px;
   min-width: 60px;
   margin: 5px;
+  
+  /*background: #A5ABB3;*/
+}
+#_circl_min {
+  margin-top: 20px;
+  width: 20px;
+  height: 20px;
+}
+#_button_mes {
+  width: 120px;
+  height: 27px;
+  min-width: 60px;
+  margin: 5px;
+  margin-bottom: 15px;
   /*background: #A5ABB3;*/
 }
 

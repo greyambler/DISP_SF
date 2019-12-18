@@ -23,8 +23,6 @@ export default class w_main_azs extends React.Component {
             this.get_Id_Devices();
         }
     }
-
-
     async get_Id_Devices() {
         if (this.props.list_azs_check != null) {
             let M_ID = new Array();
@@ -52,7 +50,6 @@ export default class w_main_azs extends React.Component {
             this.setState({ list_dvc_azs: M, list_dvc_id: M_ID });
         }
     }
-
     async tick_azs_id(RES, id_azs) {
         let rss = RES + '/' + id_azs;
         var myRequest = new Request(rss);
@@ -91,7 +88,6 @@ export default class w_main_azs extends React.Component {
             console.log(error);
         }
     }
-
     render() {
         if (this.state.list_dvc_id != null) {
             return (

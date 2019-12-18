@@ -178,28 +178,5 @@ export default class tso_Rec_button extends React.Component {
                 </table>
             </>
         );
-
-/*  
-        let S_width = 115;
-        let S_height = 24;
-
-
-        return (
-            <>
-                {this.props.text}
-                <button
-                    onClick={() => this.toock(this.props.title, this.props.el.dvc_id, this.props.el_azsS, this.props.type_Body)}
-                    title={this.props.title}>
-
-                    <Stage width={S_width} height={S_height} x={0} y={0}>
-                        <Layer key='1'>
-                        <Text x={7} y={8} text="Перезагрузка" fontSize={10} />                        
-                            <AZS_Image Image='/images/rec_green.png' 
-                                _W='23' _H='23' _X={90} _Y={1} />
-                        </Layer>
-                    </Stage>
-                </button>
-            </>
-        );
- */    }
+    }
 }

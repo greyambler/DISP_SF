@@ -6,7 +6,6 @@ import 'react-app-polyfill/stable';
 
 import './App.css';
 
-
 import {
   Icon, Menu, Segment, Sidebar, Grid, Image, Header,
   Input, Form, Table, List, Label, Button, Select, Radio, TextArea, Checkbox
@@ -24,22 +23,13 @@ import { BrowserRouter as Router, Route, Link, Switch, Redirect } from "react-ro
 import { Link as S_Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import W_AZS_SF from './w_AZS_SF.jsx'
-
 import W_main_edit_azs from './azs_sf/edit/w_main_edit_azs.jsx'
-
 import W_ListErr_AZS from './controls/listErr_AZS.jsx';
-
-
 import W_Login from './w_Login.jsx'
-
 import W_LeftPanel from './test/w_LeftPanel.jsx'
 import W_AccordPanel from './test/w_AccordPanel.jsx'
-
 import W_test_Check from './test/test_Check.jsx'
-
 import W_Set_Filter from './controls/w_Filter_AZS_Props.jsx'
-
-
 import AZS_Image from './controls/AZS_Image.jsx'
 import { Stage, Layer, Rect, Text, Circle, Shape } from 'react-konva';
 
@@ -101,7 +91,6 @@ function get_DVC_NEED(DVC_check) {
   }
   return r;
 }
-
 class Main extends Component {
   render() {
     return (<W_AZS_SF
@@ -120,7 +109,6 @@ class AZS_SF extends Component {
     />);
   }
 }
-
 class Edit_List_AZS extends Component {
   render() {
 
@@ -145,13 +133,11 @@ class CleanTOKEN extends Component {
     return <center><h2>Очистить</h2></center>;
   }
 }
-
 class Settings extends Component {
   render() {
     return (<W_test_Check />);
   }
 }
-
 class Help extends Component {
   constructor(props) {
     super(props);
@@ -279,14 +265,15 @@ class Nav extends Component {
               <li><Link to="/settings" >Настройки</Link></li>
 
 
-              {/*               <li><Link to="/" ><center>Справочники&gt;&gt;</center></Link>
+{/*               <li><Link to="/" ><center>Справочники&gt;&gt;</center></Link>
                 <ul className="submenu">
                   <li><Link to="/List_Edit_AZS">Справочник АЗК</Link></li>
                   <li><Link to="/settings" >Настройки</Link></li>
                   <li><Link to="/settingsFilter" >Настройки фильтра</Link></li>
                 </ul>
               </li>
- */}              {/*<li><Link to="/clean" >Очистить</Link></li> */}
+*/}
+              {/*<li><Link to="/clean" >Очистить</Link></li> */}
               <li><Link to="/help" >Помощь</Link></li>
             </ul>
           </li>
@@ -337,7 +324,6 @@ class Nav extends Component {
     );
   }
 }
-
 function Init_DVC() {
   let DVC = new Array();
   DVC.push({ nm: "Резервуар", typ: "pl", check: true, id: createGuid() });
@@ -345,7 +331,6 @@ function Init_DVC() {
   DVC.push({ nm: "ТСО", typ: "tso", check: true, id: createGuid() });
   return DVC;
 }
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -469,32 +454,17 @@ export default class App extends Component {
                       history={history}
                       list_azs_check={get_list_azs_check_NEED(this.state.list_azs_check)}
                       DVC={get_DVC_NEED(this.state.DVC)} />} />
-
-
                     <Route exact path="/AZS_SF" render={({ history }) => <AZS_SF
                       history={history} list_azs_check={get_list_azs_check_NEED(this.state.list_azs_check)}
                       DVC={get_DVC_NEED(this.state.DVC)} />} />
-
-
                     <Route exact path="/settings" render={({ history }) => <Settings history={history} />} />
-
-
                     <Route exact path="/help" render={({ history }) => <Help history={history} />} />
-
-
                     <Route exact path="/LeftPanel" render={({ history }) => <LeftPanel history={history} />} />
-
                     <Route exact path="/AccordPanel" render={({ history }) => <AccordPanel history={history} />} />
-
-
                     <Route exact path="/List_Edit_AZS" render={({ history }) => <Edit_List_AZS history={history} />} />
-
                     <Route exact path="/clean" component={CleanTOKEN} />
-
                     <Route exact path="/azs_listerror&*" render={(ev) => <AZS_listerror
                       history={this.props.history} azs_id={ev.match.params[0]} _List_Objs={this.state._List_Objs} />} />
-
-
                     <Route exact component={NotFound} />
                   </Switch>
 

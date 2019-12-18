@@ -12,9 +12,7 @@ import AZS_Image from '../controls/AZS_Image.jsx'
 export default class azs_Head extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
-
         }
     }
 

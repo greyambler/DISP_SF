@@ -52,24 +52,5 @@ export default class filter_tr extends React.Component {
                 </tbody>
             </table>
         );
-        /*
-        return (
-            <Segment onClick={this.Click}>
-                <Grid style={_style_2}>
-                    <Grid.Column width={13} onClick={this.Click}>
-                        <p style={_style_3}>
-                            {this.state.text_dvc}
-                        </p>
-                    </Grid.Column>
-
-                    <Grid.Column width={3}>
-                        <p style={_style_4}>
-                            <Image src={this.state._arrow} onClick={this.Click} />
-                        </p>
-                    </Grid.Column>
-                </Grid>
-            </Segment>
-        );
-        */
     }
 }

@@ -24,14 +24,14 @@ export default class row_TR extends Component {
             width: "87%",
         }
         let style_input = {
-
             width: '100%',
-
         }
-        
+
         return (
             <tr>
-                <td style={style_td_name}>{get_KeyHead(this.props.name)}</td>
+                <td style={style_td_name}>
+                    {get_KeyHead(this.props.name)}
+                </td>
                 {/*<td style={style_td_value}>{this.props.value}</td> */}
                 <td style={style_td_input}>
                     <input type={this.props.type} style={style_input}
