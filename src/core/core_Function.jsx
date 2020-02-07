@@ -276,7 +276,6 @@ export function Get_Main_PROPS_AZS(azs, mass_DVC, List_Main) {
 
         let list_PL_col = get_Lists(List_Main, "pl");
         let list_PUMP_col = get_Lists(List_Main, "pump");
-
         let list_TSO_col = get_Lists(List_Main, "tso");
 
         for (const iterator of mass_DVC) {

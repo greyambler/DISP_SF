@@ -12,6 +12,7 @@ export default class w_Login extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.Post_Data = this.Post_Data.bind(this);
         this.OnKeyPress = this.OnKeyPress.bind(this);
+        this.Ret_False = this.Ret_False.bind(this);        
         this.state = {
             login: null,
             password: null,
@@ -102,6 +103,9 @@ export default class w_Login extends React.Component {
             this.handleSubmit(el);
         }
     }
+    Ret_False(){
+        return "return false;";
+    }
 
     render() {
 
@@ -110,7 +114,7 @@ export default class w_Login extends React.Component {
         return (
             <center>
 
-                <form onsubmit="return false;">
+                <form onSubmit={this.Ret_False}>
                     <table width="200px">
                         <tbody>
                             <tr>
@@ -150,7 +154,7 @@ export default class w_Login extends React.Component {
                             <center>
                                 <img className="header_Img" src={'../images/St_log.png'} alt="React"
                                     width="180" height="16" />
-                                <form onsubmit="return false;">
+                                <form onSubmit={this.Ret_False}>
                                     <table>
                                         <tbody>
                                             <tr>
